@@ -9,41 +9,37 @@ body {
 
 .mainContainer {
     width: 500px;
+
     margin: 10px auto;
     position: relative;
 }
 
 .viewCubesContainer {
-    padding: 12px 0;
-    width: 500px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px 13px;
-    justify-content: center;
-    background-color: #bbada0;
+
+    width: 100%;
     height: 500px;
-    border-radius: 1%;
+
+    gap: 10px 10px;
+    display: grid;
+    padding: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    background-color: #bbada0;
     position: absolute;
+    border-radius: 1%;
+
 
 }
 
 .viewCube {
-    width: calc(87% / 4);
+
     background-color: #cdc1b4;
-    display: flex;
+
 
     border-radius: 2%;
 }
 
-.realCubesContainer {
-    padding: 12px 0;
-    width: 500px;
-    height: 500px;
-    border-radius: 1%;
-    position: absolute;
 
-
-}
 
 .realCube {
     background-color: #eee4da;
@@ -67,7 +63,7 @@ body {
     color: white;
     background-color: #eee;
     border-radius: 2%;
-    width: 500px;
+    width: 100%;
     margin: 10px auto;
     display: flex;
     padding: 5px;
@@ -84,6 +80,8 @@ body {
     width: 70px;
     text-align: center;
 }
+
+
 
 .scoreContainer span {
     font-weight: bold;
@@ -111,6 +109,8 @@ body {
 
     text-align: center;
 }
+
+
 
 .bestScoreContainer span {
     font-weight: bold;
@@ -176,4 +176,29 @@ body {
     background-color: #b7a798a8;
     transform: scale(0.6, 0.6);
     transition: transform 1s;
+}
+
+@media (max-width: 500px) {
+
+
+    .scoreContainer {
+        width: 35px;
+    }
+
+    .mainContainer {
+        width: 320px;
+    }
+
+    .viewCubesContainer {
+        height: 320px;
+    }
+
+    .bestScoreContainer {
+        width: 60px;
+    }
+
+    .gameover {
+        width: 320px;
+        height: 320px;
+    }
 }

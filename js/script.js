@@ -1,5 +1,5 @@
 let viewCubesContainer = document.querySelector("#viewCubesContainer");
-let realCubesContainer = document.querySelector("#realCubesContainer");
+
 let scoreBox = document.querySelector("#score");
 let bestScoreBox = document.querySelector("#bestScore");
 let go = document.getElementById("gameover");
@@ -7,6 +7,7 @@ let highScore = localStorage.getItem("highScore");
 let score;
 let action = false;
 let wait0 = false;
+let gameOverCounter = 0;
 let viewCube;
 let aviM = [];
 let arrOfP = [
@@ -117,19 +118,19 @@ function randomEle() {
     }
 }
 
-
-
 function createElementInThisPos(r, c, val) {
     let x = document.querySelectorAll(".viewCube");
     let w = (x[0].getBoundingClientRect().width) + "px";
     let h = (x[0].getBoundingClientRect().height) + "px";
+
+
     let realCube = document.createElement("div");
     realCube.classList.add("realCube");
     realCube.innerHTML = val;
     realCube.style.width = w;
     realCube.style.height = h;
     arrOfP[r][c] = val;
-    realCubesContainer.appendChild(realCube);
+    viewCubesContainer.appendChild(realCube);
     realCube.style.left = getXP(r, c) + "px";
     realCube.style.top = getYP(r, c) + "px";
     coloringEle(realCube);
@@ -137,31 +138,54 @@ function createElementInThisPos(r, c, val) {
     checkPoint();
 
 }
-let isGameOver0 = false;
-function moveUp(ty = "real") {
-    if (ty == "check")
-        isGameOver0 = false;
+document.addEventListener("resize", (e) => {
+
+})
+
+function move(ty, l, m, n) {
+
+    wait0 = true;
     let lagelMove = false;
     let lagelMerge = false;
 
     let newI;
-    for (let i = 1; i < 4; i++) {
+    let i;
+
+    if (n == -1)
+        i = 1
+    else
+        i = 2;
+
+    for (; ;) {
+
         for (let j = 0; j < 4; j++) {
-            if (arrOfP[i][j] && isThisARealCube(getXR(i, j), getYR(i, j))) {
-                for (let k = i - 1; k >= 0; k--) {
-                    if (!arrOfP[k][j]) {
+            let switchIJ = (i * l) + (j * m);
+            let switchJI = (i * m) + (j * l);
+
+
+            if (arrOfP[switchIJ][switchJI] && isThisARealCube(getXR(switchIJ, switchJI), getYR(switchIJ, switchJI))) {
+                for (let k = i + n; ;) {
+
+
+
+
+                    let switchIK = (switchIJ * m) + (k * l);
+                    let switchJK = (switchJI * l) + (k * m);
+
+
+                    if (!arrOfP[switchIK][switchJK]) {
                         lagelMove = true;
                         newI = k;
-                        isGameOver0 = false;
+                        gameOverCounter = 0;
                     }
-                    else if (arrOfP[k][j] == arrOfP[i][j]) {
-                        if (flags[k][j] == 0) {
+                    else if (arrOfP[switchIK][switchJK] == arrOfP[switchIJ][switchJI]) {
+                        if (flags[switchIK][switchJK] == 0) {
                             lagelMerge = true;
                             newI = k;
                             if (ty == "real")
-                                flags[k][j] = 1;
+                                flags[switchIK][switchJK] = 1;
                             lagelMove = false;
-                            isGameOver0 = false;
+                            gameOverCounter = 0;
                             break;
                         }
                         else
@@ -169,20 +193,29 @@ function moveUp(ty = "real") {
                     }
                     else
                         break;
+
+                    if ((k > 0 && n == -1) || (k < 3 && n == 1))
+                        k += n;
+                    else
+                        break;
                 }
             }
 
-            if (lagelMove && ty == "real") {
-                arrOfP[newI][j] = arrOfP[i][j];
-                arrOfP[i][j] = 0;
 
-                moveToThisPos(i, j, newI, j)
+            let switchNewI = (switchIJ * m) + (newI * l);
+            let switchNewJ = (switchJI * l) + (newI * m);
+
+            if (lagelMove && ty == "real") {
+                arrOfP[switchNewI][switchNewJ] = arrOfP[switchIJ][switchJI];
+                arrOfP[switchIJ][switchJI] = 0;
+
+                moveToThisPos(switchIJ, switchJI, switchNewI, switchNewJ)
             }
             if (lagelMerge && ty == "real") {
-                arrOfP[newI][j] += arrOfP[i][j];
-                arrOfP[i][j] = 0;
-                moveToThisPos(i, j, newI, j)
-                setTimeout(deleteEle, 210, newI, j);
+                arrOfP[switchNewI][switchNewJ] *= 2;
+                arrOfP[switchIJ][switchJI] = 0;
+                moveToThisPos(switchIJ, switchJI, switchNewI, switchNewJ)
+                setTimeout(deleteEle, 210, switchNewI, switchNewJ);
             }
             if (ty == "real") {
                 lagelMove = false;
@@ -190,6 +223,10 @@ function moveUp(ty = "real") {
 
             }
         }
+        if ((i < 3 && n == -1) || (i > 0 && n == 1))
+            i += n * -1;
+        else
+            break;
 
     }
     if (ty == "real") {
@@ -198,216 +235,280 @@ function moveUp(ty = "real") {
 
     }
     if (ty == "check" && !lagelMove && !lagelMerge)
-        isGameOver0 = true;
+        gameOverCounter++;
 
-
+    setTimeout(() => { wait0 = false }, 250)
 }
 
 
 
 
 
+// function moveUp(ty = "real") {
+//     if (ty == "check")
+//         isGameOver0 = false;
+//     let lagelMove = false;
+//     let lagelMerge = false;
 
-let isGameOver1 = false;
+//     let newI;
+//     for (let i = 1; i < 4; i++) {
+//         for (let j = 0; j < 4; j++) {
+//             if (arrOfP[i][j] && isThisARealCube(getXR(i, j), getYR(i, j))) {
+//                 for (let k = i - 1; k >= 0; k--) {
+//                     if (!arrOfP[k][j]) {
+//                         lagelMove = true;
+//                         newI = k;
+//                         isGameOver0 = false;
+//                     }
+//                     else if (arrOfP[k][j] == arrOfP[i][j]) {
+//                         if (flags[k][j] == 0) {
+//                             lagelMerge = true;
+//                             newI = k;
+//                             if (ty == "real")
+//                                 flags[k][j] = 1;
+//                             lagelMove = false;
+//                             isGameOver0 = false;
+//                             break;
+//                         }
+//                         else
+//                             break;
+//                     }
+//                     else
+//                         break;
+//                 }
+//             }
 
-function moveDown(ty = "real") {
-    if (ty == "check")
-        isGameOver1 = false;
-    let lagelMove = false;
-    let lagelMerge = false;
-    let newI;
+//             if (lagelMove && ty == "real") {
+//                 arrOfP[newI][j] = arrOfP[i][j];
+//                 arrOfP[i][j] = 0;
 
-    for (let i = 2; i >= 0; i--) {
-        for (let j = 0; j < 4; j++) {
-            if (arrOfP[i][j] && isThisARealCube(getXR(i, j), getYR(i, j))) {
-                for (let k = i + 1; k <= 3; k++) {
-                    if (!arrOfP[k][j]) {
-                        lagelMove = true;
-                        isGameOver0 = false;
-                        newI = k;
-                    }
-                    else if (arrOfP[k][j] == arrOfP[i][j]) {
-                        if (flags[k][j] == 0) {
-                            lagelMerge = true;
-                            newI = k;
-                            if (ty == "real")
-                                flags[k][j] = 1;
-                            lagelMove = false;
-                            isGameOver0 = false;
-                            break;
-                        }
-                        else
-                            break;
-                    }
-                    else
-                        break;
-                }
-            }
+//                 moveToThisPos(i, j, newI, j)
+//             }
+//             if (lagelMerge && ty == "real") {
+//                 arrOfP[newI][j] += arrOfP[i][j];
+//                 arrOfP[i][j] = 0;
+//                 moveToThisPos(i, j, newI, j)
+//                 setTimeout(deleteEle, 210, newI, j);
+//             }
+//             if (ty == "real") {
+//                 lagelMove = false;
+//                 lagelMerge = false;
 
-            if (lagelMove && ty == "real") {
-                arrOfP[newI][j] = arrOfP[i][j];
-                arrOfP[i][j] = 0;
-                moveToThisPos(i, j, newI, j)
-            }
-            if (lagelMerge && ty == "real") {
-                arrOfP[newI][j] += arrOfP[i][j];
-                arrOfP[i][j] = 0;
-                moveToThisPos(i, j, newI, j)
+//             }
+//         }
 
-                setTimeout(deleteEle, 250, newI, j);
-            }
-            if (ty == "real") {
-                lagelMove = false;
-                lagelMerge = false;
-            }
+//     }
+//     if (ty == "real") {
+//         restFlags();
+//         randomEle();
 
-        }
-
-    }
-
-    if (ty == "real") {
-        restFlags();
-        randomEle();
-    }
-
-    if (ty == "check" && !lagelMove && !lagelMerge)
-        isGameOver1 = true;
-}
-
-let isGameOver2 = false;
-function moveRight(ty = "real") {
-    if (ty == "check")
-        isGameOver2 = false;
-    let lagelMove = false;
-    let lagelMerge = false;
-    let newI;
-    for (let i = 2; i >= 0; i--) {
-        for (let j = 0; j < 4; j++) {
-            if (arrOfP[j][i] && isThisARealCube(getXR(j, i), getYR(j, i))) {
-                for (let k = i + 1; k <= 3; k++) {
-
-                    if (!arrOfP[j][k]) {
-                        lagelMove = true;
-                        isGameOver2 = false;
-                        newI = k;
-                    }
-                    else if (arrOfP[j][k] == arrOfP[j][i]) {
-                        if (flags[j][k] == 0) {
-                            lagelMerge = true;
-                            newI = k;
-                            isGameOver2 = false;
-                            if (ty == "real")
-                                flags[j][k] = 1;
-                            lagelMove = false;
-                            break;
-                        }
-                        else
-                            break;
-                    }
-                    else
-                        break;
-                }
-            }
-            if (lagelMove && ty == "real") {
-                arrOfP[j][newI] = arrOfP[j][i];
-                arrOfP[j][i] = 0;
-                moveToThisPos(j, i, j, newI)
-            }
-            if (lagelMerge && ty == "real") {
-                arrOfP[j][newI] += arrOfP[j][i];
-                arrOfP[j][i] = 0;
-                moveToThisPos(j, i, j, newI)
-
-                setTimeout(deleteEle, 250, j, newI);
-            }
-            if (ty == "real") {
-                lagelMove = false;
-                lagelMerge = false;
-            }
+//     }
+//     if (ty == "check" && !lagelMove && !lagelMerge)
+//         isGameOver0 = true;
 
 
-        }
+// }
+
+// let isGameOver1 = false;
+
+// function moveDown(ty = "real") {
+//     if (ty == "check")
+//         isGameOver1 = false;
+//     let lagelMove = false;
+//     let lagelMerge = false;
+//     let newI;
+
+//     for (let i = 2; i >= 0; i--) {
+//         for (let j = 0; j < 4; j++) {
+//             if (arrOfP[i][j] && isThisARealCube(getXR(i, j), getYR(i, j))) {
+//                 for (let k = i + 1; k <= 3; k++) {
+//                     if (!arrOfP[k][j]) {
+//                         lagelMove = true;
+//                         isGameOver0 = false;
+//                         newI = k;
+//                     }
+//                     else if (arrOfP[k][j] == arrOfP[i][j]) {
+//                         if (flags[k][j] == 0) {
+//                             lagelMerge = true;
+//                             newI = k;
+//                             if (ty == "real")
+//                                 flags[k][j] = 1;
+//                             lagelMove = false;
+//                             isGameOver0 = false;
+//                             break;
+//                         }
+//                         else
+//                             break;
+//                     }
+//                     else
+//                         break;
+//                 }
+//             }
+
+//             if (lagelMove && ty == "real") {
+//                 arrOfP[newI][j] = arrOfP[i][j];
+//                 arrOfP[i][j] = 0;
+//                 moveToThisPos(i, j, newI, j)
+//             }
+//             if (lagelMerge && ty == "real") {
+//                 arrOfP[newI][j] += arrOfP[i][j];
+//                 arrOfP[i][j] = 0;
+//                 moveToThisPos(i, j, newI, j)
+
+//                 setTimeout(deleteEle, 250, newI, j);
+//             }
+//             if (ty == "real") {
+//                 lagelMove = false;
+//                 lagelMerge = false;
+//             }
+
+//         }
+
+//     }
+
+//     if (ty == "real") {
+//         restFlags();
+//         randomEle();
+//     }
+
+//     if (ty == "check" && !lagelMove && !lagelMerge)
+//         isGameOver1 = true;
+// }
+
+// let isGameOver2 = false;
+// function moveRight(ty = "real") {
+//     if (ty == "check")
+//         isGameOver2 = false;
+//     let lagelMove = false;
+//     let lagelMerge = false;
+//     let newI;
+//     for (let i = 2; i >= 0; i--) {
+//         for (let j = 0; j < 4; j++) {
+//             if (arrOfP[j][i] && isThisARealCube(getXR(j, i), getYR(j, i))) {
+//                 for (let k = i + 1; k <= 3; k++) {
+
+//                     if (!arrOfP[j][k]) {
+//                         lagelMove = true;
+//                         isGameOver2 = false;
+//                         newI = k;
+//                     }
+//                     else if (arrOfP[j][k] == arrOfP[j][i]) {
+//                         if (flags[j][k] == 0) {
+//                             lagelMerge = true;
+//                             newI = k;
+//                             isGameOver2 = false;
+//                             if (ty == "real")
+//                                 flags[j][k] = 1;
+//                             lagelMove = false;
+//                             break;
+//                         }
+//                         else
+//                             break;
+//                     }
+//                     else
+//                         break;
+//                 }
+//             }
+//             if (lagelMove && ty == "real") {
+//                 arrOfP[j][newI] = arrOfP[j][i];
+//                 arrOfP[j][i] = 0;
+//                 moveToThisPos(j, i, j, newI)
+//             }
+//             if (lagelMerge && ty == "real") {
+//                 arrOfP[j][newI] += arrOfP[j][i];
+//                 arrOfP[j][i] = 0;
+//                 moveToThisPos(j, i, j, newI)
+
+//                 setTimeout(deleteEle, 250, j, newI);
+//             }
+//             if (ty == "real") {
+//                 lagelMove = false;
+//                 lagelMerge = false;
+//             }
 
 
-    }
-    if (ty == "real") {
-        restFlags();
-        randomEle();
-    }
-    if (ty == "check" && !lagelMove && !lagelMerge)
-        isGameOver2 = true;
+//         }
 
 
-}
-
-let isGameOver3 = false;
-function moveLeft(ty = "real") {
-    if (ty == "check")
-        isGameOver3 = false;
-
-    let lagelMove = false;
-    let lagelMerge = false;
-    let newI;
-    for (let i = 1; i < 4; i++) {
-        for (let j = 0; j < 4; j++) {
-            if (arrOfP[j][i] && isThisARealCube(getXR(j, i), getYR(j, i))) {
-                for (let k = i - 1; k >= 0; k--) {
-
-                    if (!arrOfP[j][k]) {
-                        lagelMove = true;
-                        isGameOver3 = false;
-                        newI = k;
-                    }
-                    else if (arrOfP[j][k] == arrOfP[j][i]) {
-                        if (flags[j][k] == 0) {
-                            lagelMerge = true;
-                            newI = k;
-                            isGameOver3 = false;
-                            if (ty == "real")
-                                flags[j][k] = 1;
-                            lagelMove = false;
-                            break;
-                        }
-                        else
-                            break;
-
-                    }
-                    else
-                        break;
-                }
-            }
-            if (lagelMove && ty == "real") {
-                arrOfP[j][newI] = arrOfP[j][i];
-                arrOfP[j][i] = 0;
-                moveToThisPos(j, i, j, newI)
-            }
-            if (lagelMerge && ty == "real") {
-                arrOfP[j][newI] += arrOfP[j][i];
-                arrOfP[j][i] = 0;
-                moveToThisPos(j, i, j, newI)
-
-                setTimeout(deleteEle, 250, j, newI);
-            }
-            if (ty == "real") {
-                lagelMove = false;
-                lagelMerge = false;
-            }
+//     }
+//     if (ty == "real") {
+//         restFlags();
+//         randomEle();
+//     }
+//     if (ty == "check" && !lagelMove && !lagelMerge)
+//         isGameOver2 = true;
 
 
-        }
+// }
+
+// let isGameOver3 = false;
+// function moveLeft(ty = "real") {
+//     if (ty == "check")
+//         isGameOver3 = false;
+
+//     let lagelMove = false;
+//     let lagelMerge = false;
+//     let newI;
+//     for (let i = 1; i < 4; i++) {
+//         for (let j = 0; j < 4; j++) {
+//             if (arrOfP[j][i] && isThisARealCube(getXR(j, i), getYR(j, i))) {
+//                 for (let k = i - 1; k >= 0; k--) {
+
+//                     if (!arrOfP[j][k]) {
+//                         lagelMove = true;
+//                         isGameOver3 = false;
+//                         newI = k;
+//                     }
+//                     else if (arrOfP[j][k] == arrOfP[j][i]) {
+//                         if (flags[j][k] == 0) {
+//                             lagelMerge = true;
+//                             newI = k;
+//                             isGameOver3 = false;
+//                             if (ty == "real")
+//                                 flags[j][k] = 1;
+//                             lagelMove = false;
+//                             break;
+//                         }
+//                         else
+//                             break;
+
+//                     }
+//                     else
+//                         break;
+//                 }
+//             }
+//             if (lagelMove && ty == "real") {
+//                 arrOfP[j][newI] = arrOfP[j][i];
+//                 arrOfP[j][i] = 0;
+//                 moveToThisPos(j, i, j, newI)
+//             }
+//             if (lagelMerge && ty == "real") {
+//                 arrOfP[j][newI] += arrOfP[j][i];
+//                 arrOfP[j][i] = 0;
+//                 moveToThisPos(j, i, j, newI)
+
+//                 setTimeout(deleteEle, 250, j, newI);
+//             }
+//             if (ty == "real") {
+//                 lagelMove = false;
+//                 lagelMerge = false;
+//             }
 
 
-    }
-    if (ty == "real") {
-        restFlags();
+//         }
 
-        randomEle();
-    }
 
-    if (ty == "check" && !lagelMove && !lagelMerge)
-        isGameOver3 = true;
+//     }
+//     if (ty == "real") {
+//         restFlags();
 
-}
+//         randomEle();
+//     }
+
+//     if (ty == "check" && !lagelMove && !lagelMerge)
+//         isGameOver3 = true;
+
+// }
 
 
 
@@ -435,11 +536,11 @@ function checkIfGameOver() {
         }
     }
     if (!aviM.length) {
-        moveRight("check");
-        moveUp("check");
-        moveDown("check");
-        moveLeft("check");
-        if (isGameOver0 && isGameOver1 && isGameOver2 && isGameOver3) {
+        move("check", 1, 0, -1);
+        move("check", 1, 0, 1);
+        move("check", 0, 1, -1);
+        move("check", 0, 1, 1);
+        if (gameOverCounter == 4) {
             go.style.zIndex = "1";
             go.style.transform = "scale(1,1)";
         }
@@ -558,25 +659,67 @@ function getYR(r, c) {
 
 
 
+function isThisARealCube(x, y) {
+    return document.elementFromPoint(x, y).classList.contains("realCube");
+}
 
 
 document.addEventListener("keydown", (event) => {
     if (!wait0) {
-        wait0 = true;
-        setTimeout(() => {
-            wait0 = false;
-        }, 250)
+
+
         if (event.key == "ArrowLeft")
-            moveLeft()
+            move("real", 0, 1, -1);
 
         else if (event.key == "ArrowRight")
-            moveRight()
+            move("real", 0, 1, 1);
         else if (event.key == "ArrowUp")
-            moveUp()
+            move("real", 1, 0, -1);
         else if (event.key == "ArrowDown")
-            moveDown()
+            move("real", 1, 0, 1);
 
     }
+})
+
+
+
+
+let touchstartX = 0;
+let touchendX = 0;
+let touchstartY = 0;
+let touchendY = 0;
+
+function checkDirection() {
+    let hor = Math.abs(touchendX - touchstartX)
+    let ver = Math.abs(touchendY - touchstartY)
+    if (!wait0) {
+        if (hor < ver) {
+            if (touchendY < touchstartY)
+                move("real", 1, 0, -1);
+            else
+                move("real", 1, 0, 1);
+
+        }
+        else {
+            if (touchendX > touchstartX)
+                move("real", 0, 1, 1);
+            else
+                move("real", 0, 1, -1);
+
+        }
+    }
+
+}
+
+document.addEventListener('touchstart', e => {
+    touchstartX = e.changedTouches[0].screenX
+    touchstartY = e.changedTouches[0].screenY
+})
+
+document.addEventListener('touchend', e => {
+    touchendX = e.changedTouches[0].screenX
+    touchendY = e.changedTouches[0].screenY
+    checkDirection()
 })
 
 
@@ -603,40 +746,32 @@ document.addEventListener("keydown", (event) => {
 
 
 
+// function assembler(r, valueOfinc) {
+//     let xOfM = getXR(r);
+//     let yOfM = getYR(r);
+//     let xOfS = getXR(r + (valueOfinc));
+//     let yOfS = getYR(r + (valueOfinc));
 
+//     if (isThisARealCube(xOfM, yOfM)) {
+//         if (isThisARealCube(xOfS, yOfS)) {
 
+//         }
+//         else if (isThisAViewlCube(xOfS, yOfS)) {
+//             moveToThisPos(xOfM, yOfM, r, valueOfinc);
 
+//         }
+//     }
+// }
 
-
-function assembler(r, valueOfinc) {
-    let xOfM = getXR(r);
-    let yOfM = getYR(r);
-    let xOfS = getXR(r + (valueOfinc));
-    let yOfS = getYR(r + (valueOfinc));
-
-    if (isThisARealCube(xOfM, yOfM)) {
-        if (isThisARealCube(xOfS, yOfS)) {
-
-        }
-        else if (isThisAViewlCube(xOfS, yOfS)) {
-            moveToThisPos(xOfM, yOfM, r, valueOfinc);
-
-        }
-    }
-}
 
 
 
 
 
 
-function isThisARealCube(x, y) {
-    return document.elementFromPoint(x, y).classList.contains("realCube");
-}
-
-function isThisAViewlCube(x, y) {
-    return document.elementsFromPoint(x, y)[1].classList.contains("viewCube");
-}
+// function isThisAViewlCube(x, y) {
+//     return document.elementsFromPoint(x, y)[1].classList.contains("viewCube");
+// }
 
 
 
