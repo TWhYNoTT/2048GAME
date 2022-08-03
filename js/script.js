@@ -754,13 +754,13 @@ alert("a");
 
 }
 
-viewCubesContainer.addEventListener('touchstart', e => {
+document.addEventListener('touchstart', e => {
     e.preventDefault()
     touchstartX = e.changedTouches[0].screenX
     touchstartY = e.changedTouches[0].screenY
 })
 
-viewCubesContainer.addEventListener('touchend', e => {
+document.addEventListener('touchend', e => {
     e.preventDefault()
     touchendX = e.changedTouches[0].screenX
     touchendY = e.changedTouches[0].screenY
