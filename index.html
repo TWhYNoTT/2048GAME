@@ -38,6 +38,47 @@
 
 
     <script src="js/script.js"></script>
+    <script>
+        let sx = 0;
+        let ex = 0;
+        let sy = 0;
+        let ey = 0;
+
+        function checkDirection() {
+            let hor = Math.abs(ex - sx)
+            let ver = Math.abs(ey - sy)
+
+            if (hor < ver) {
+                if (ey < sy)
+                    alert("swipe")
+                else
+                    alert("swipe")
+
+            }
+            else {
+                if (ex > sx)
+                    alert("swipe")
+                else if (ex < sx)
+                    alert("swipe")
+
+            }
+
+
+        }
+
+        document.addEventListener('touchstart', e => {
+
+            sx = e.changedTouches[0].screenX
+            sy = e.changedTouches[0].screenY
+        })
+
+        document.addEventListener('touchend', e => {
+
+            ex = e.changedTouches[0].screenX
+            ey = e.changedTouches[0].screenY
+            checkDirection()
+        })
+    </script>
 </body>
 
 </html>
