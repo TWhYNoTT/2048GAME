@@ -744,14 +744,14 @@ function checkDirection() {
 
 }
 
-viewCubesContainer.addEventListener('touchstart', e => {
-    e.preventDefault()
+document.addEventListener('touchstart', e => {
+ 
     touchstartX = e.changedTouches[0].screenX
     touchstartY = e.changedTouches[0].screenY
 })
 
-viewCubesContainer.addEventListener('touchend', e => {
-    e.preventDefault()
+document.addEventListener('touchend', e => {
+
     touchendX = e.changedTouches[0].screenX
     touchendY = e.changedTouches[0].screenY
     checkDirection()
