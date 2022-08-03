@@ -722,37 +722,33 @@ let touchendX = 0;
 let touchstartY = 0;
 let touchendY = 0;
 
-function checkDirection() {
-    let hor = Math.abs(touchendX - touchstartX)
-    let ver = Math.abs(touchendY - touchstartY)
-alert("a");
-    if (hor < ver) {
-        if (touchendY < touchstartY)
-        {
-            move("real", 1, 0, -1);
-        rt("aa0");
-        }
-        else
-        {
-            move("real", 1, 0, 1);
-        rt("aa1");
-        }
-    }
-    else {
-        if (touchendX > touchstartX)
-        {
-            move("real", 0, 1, 1);
-        rt("ad0");
-        }
-        else if (touchendX < touchstartX)
-        {
-            move("real", 0, 1, -1);
-        rt("ad1");
-        }
-    }
+ function checkDirection() {
+            let hor = Math.abs(touchendX - touchstartX)
+            let ver = Math.abs(touchendY - touchstartY)
+            alert("a");
+            if (hor < ver) {
+                if (touchendY < touchstartY) {
+                    move("real", 1, 0, -1);
+                    alert("aa0");
+                }
+                else {
+                    move("real", 1, 0, 1);
+                    alert("aa1");
+                }
+            }
+            else {
+                if (touchendX > touchstartX) {
+                    move("real", 0, 1, 1);
+                    alert("ad0");
+                }
+                else if (touchendX < touchstartX) {
+                    move("real", 0, 1, -1);
+                    alert("ad1");
+                }
+            }
 
 
-}
+        }
 
 document.addEventListener('touchstart', e => {
     e.preventDefault()
