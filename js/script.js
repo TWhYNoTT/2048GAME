@@ -141,7 +141,7 @@ function createElementInThisPos(r, c, val) {
 
 
 function move(ty, l, m, n) {
-
+    let prevScore = score;
     wait0 = true;
     let lagelMove = false;
     let lagelMerge = false;
@@ -232,10 +232,18 @@ function move(ty, l, m, n) {
         randomEle();
 
     }
+
     if (ty == "check" && !lagelMove && !lagelMerge)
         gameOverCounter++;
 
-    setTimeout(() => { wait0 = false }, 250)
+
+
+    setTimeout(() => {
+        wait0 = false;
+
+        if (parseInt(score) - (parseInt(prevScore)) > 0)
+            scoreAnim(parseInt(score) - (parseInt(prevScore)));
+    }, 250)
 }
 
 
@@ -578,6 +586,7 @@ function increaseValue(r, c) {
     if (ele.classList.contains("realCube")) {
         ele.textContent = arrOfP[r][c];
         score += arrOfP[r][c];
+
         scoreBox.innerHTML = score;
         localStorage.setItem("lastScore", score);
         if (score > highScore) {
@@ -593,6 +602,19 @@ function increaseValue(r, c) {
 
     }
 }
+function scoreAnim(value) {
+    let ele0 = document.getElementById("scoreAnim");
+
+    ele0.style.transition = "bottom 500ms linear"
+    ele0.innerHTML = "+" + value;
+    ele0.style.visibility = "visible";
+    ele0.style.bottom = "80px";
+    setTimeout(() => {
+        ele0.style.transition = "bottom 0ms linear"
+        ele0.style.visibility = "hidden";
+        ele0.style.bottom = "0px";
+    }, 300)
+}
 
 
 
@@ -606,9 +628,22 @@ function coloringEle(ele) {
     else if (ele.textContent == 64)
         ele.style.backgroundColor = "rgb(246 94 59)";
     else if (ele.textContent == 128)
-        ele.style.backgroundColor = "rgb(237 207 115)";
+        ele.style.backgroundColor = "rgb(237 200 115)";
     else if (ele.textContent == 256)
-        ele.style.backgroundColor = "rgb(237 204 98)";
+        ele.style.backgroundColor = "rgb(237 210 98)";
+    else if (ele.textContent == 512)
+        ele.style.backgroundColor = "rgb(237 225 98)";
+    else if (ele.textContent == 1024)
+        ele.style.backgroundColor = "rgb(240 230 80)";
+    else if (ele.textContent >= 1024)
+        ele.style.backgroundColor = "rgb(250 240 60)";
+
+    if (ele.textContent >= 256) {
+        ele.classList.add("boxsha");
+        setTimeout(() => {
+            ele.classList.remove("boxsha");
+        }, 5000)
+    }
 
     if (ele.textContent >= 8)
         ele.style.color = "white";

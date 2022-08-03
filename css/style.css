@@ -48,14 +48,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 57px;
+    font-size: 47px;
     font-weight: bold;
     color: #776e65;
     position: absolute;
     border-radius: 2%;
     transform: scale(0, 0);
 
-    transition: top 150ms linear, left 150ms linear, transform 200ms linear;
+    transition: top 150ms linear, left 150ms linear, transform 200ms linear, box-shadow 500ms linear;
 
 
 }
@@ -208,7 +208,7 @@ body {
     }
 
     .realCube {
-        font-size: 30px;
+        font-size: 27px;
     }
 
     .scoreContainer {
@@ -236,4 +236,19 @@ body {
     .mainScoreContainer {
         font-size: 15px;
     }
+}
+
+.boxsha {
+    box-shadow: rgb(250 240 60) 0px 0px 20px;
+}
+
+#scoreAnim {
+    position: absolute;
+    color: rgb(73, 72, 72);
+    transform: translate(60%, 0);
+    font-weight: bold;
+
+    bottom: 0px;
+    visibility: hidden;
+    transition: bottom 400ms linear;
 }
