@@ -134,7 +134,11 @@ function createElementInThisPos(r, c, val) {
     realCube.style.left = getXP(r, c) + "px";
     realCube.style.top = getYP(r, c) + "px";
     coloringEle(realCube);
+
     realCube.style.transform = "scale(1,1)"
+    setTimeout(() => {
+        insertAfter(realCube, getELByRC(r, c));
+    }, 150)
     checkPoint();
 
 }
@@ -161,7 +165,7 @@ function move(ty, l, m, n) {
             let switchJI = (i * m) + (j * l);
 
 
-            if (arrOfP[switchIJ][switchJI] && isThisARealCube(getXR(switchIJ, switchJI), getYR(switchIJ, switchJI))) {
+            if (arrOfP[switchIJ][switchJI] && isThisARealCube(getELByRC(switchIJ, switchJI).nextElementSibling)) {
                 for (let k = i + n; ;) {
 
 
@@ -213,7 +217,7 @@ function move(ty, l, m, n) {
                 arrOfP[switchNewI][switchNewJ] *= 2;
                 arrOfP[switchIJ][switchJI] = 0;
                 moveToThisPos(switchIJ, switchJI, switchNewI, switchNewJ)
-                setTimeout(deleteEle, 210, switchNewI, switchNewJ);
+                setTimeout(deleteEle, 250, switchNewI, switchNewJ);
             }
             if (ty == "real") {
                 lagelMove = false;
@@ -563,17 +567,21 @@ function checkIfGameOver() {
 
 
 function moveToThisPos(oldR, oldC, newR, newC) {
-    let mainEle = document.elementFromPoint(getXR(oldR, oldC), getYR(oldR, oldC));
+    let mainEle = getELByRC(oldR, oldC).nextElementSibling;
 
     mainEle.style.left = getXP(newR, newC) + "px";
     mainEle.style.top = getYP(newR, newC) + "px";
+    setTimeout(() => {
+        insertAfter(mainEle, getELByRC(newR, newC))
+
+    }, 150)
     action = true;
 }
 
 
 
 function deleteEle(r, c) {
-    let ele = document.elementFromPoint(getXR(r, c), getYR(r, c));
+    let ele = getELByRC(r, c).nextElementSibling;
     if (ele.classList.contains("realCube")) {
 
         ele.remove();
@@ -582,7 +590,7 @@ function deleteEle(r, c) {
 }
 
 function increaseValue(r, c) {
-    let ele = document.elementFromPoint(getXR(r, c), getYR(r, c));
+    let ele = getELByRC(r, c).nextElementSibling;
     if (ele.classList.contains("realCube")) {
         ele.textContent = arrOfP[r][c];
         score += arrOfP[r][c];
@@ -663,7 +671,9 @@ function restFlags() {
 
 
 
-
+function getELByRC(r, c) {
+    return document.querySelector(".row-" + r + "col-" + c);
+}
 
 function getXP(r, c) {
     return (document.querySelector(".row-" + r + "col-" + c).getBoundingClientRect().left - viewCubesContainer.getBoundingClientRect().left);
@@ -673,16 +683,14 @@ function getYP(r, c) {
     return (document.querySelector(".row-" + r + "col-" + c).getBoundingClientRect().top - viewCubesContainer.getBoundingClientRect().top);
 }
 
-function getXR(r, c) {
+// function getXR(r, c) {
 
-    return document.querySelector(".row-" + r + "col-" + c).getBoundingClientRect().left;
-}
+//     return document.querySelector(".row-" + r + "col-" + c).getBoundingClientRect().left;
+// }
 
-function getYR(r, c) {
-    return document.querySelector(".row-" + r + "col-" + c).getBoundingClientRect().top;
-}
-
-
+// function getYR(r, c) {
+//     return document.querySelector(".row-" + r + "col-" + c).getBoundingClientRect().top;
+// }
 
 
 
@@ -692,8 +700,10 @@ function getYR(r, c) {
 
 
 
-function isThisARealCube(x, y) {
-    return document.elementFromPoint(x, y).classList.contains("realCube");
+
+
+function isThisARealCube(E) {
+    return E.classList.contains("realCube");
 }
 
 
@@ -715,7 +725,9 @@ document.addEventListener("keydown", (event) => {
 })
 
 
-
+function insertAfter(newNode, existingNode) {
+    existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
 
 let touchstartX = 0;
 let touchendX = 0;
@@ -781,7 +793,6 @@ document.addEventListener('touchend', e => {
 
 
 
-
 // function assembler(r, valueOfinc) {
 //     let xOfM = getXR(r);
 //     let yOfM = getYR(r);
@@ -808,11 +819,6 @@ document.addEventListener('touchend', e => {
 // function isThisAViewlCube(x, y) {
 //     return document.elementsFromPoint(x, y)[1].classList.contains("viewCube");
 // }
-
-
-
-
-
 
 
 

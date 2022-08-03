@@ -6,7 +6,282 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2048</title>
-    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        body {
+            font-family: "clear sans", "helvetica neue", Arial, sans-serif;
+        }
+
+        .mainContainer {
+            width: 500px;
+
+            margin: 10px auto;
+            position: relative;
+            touch-action: none;
+        }
+
+        .viewCubesContainer {
+
+            width: 100%;
+            height: 500px;
+            padding-top: 10px;
+            padding-right: 10px;
+
+            z-index: 3;
+
+
+            background-color: #bbada0;
+            position: absolute;
+            border-radius: 1%;
+            touch-action: none;
+
+
+        }
+
+        .viewCube {
+            width: 112.5px;
+            height: 112.5px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            float: left;
+            background-color: #cdc1b4;
+
+
+            border-radius: 2%;
+        }
+
+
+
+        .realCube {
+            background-color: #eee4da;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 47px;
+            font-weight: bold;
+            color: #776e65;
+            position: absolute;
+            border-radius: 2%;
+            transform: scale(0, 0);
+            z-index: 2;
+            transition: top 150ms linear, left 150ms linear, transform 200ms linear, box-shadow 500ms linear;
+
+
+        }
+
+        .mainScoreContainer {
+            min-height: 50px;
+            color: white;
+            background-color: #eee;
+            border-radius: 2%;
+            width: 100%;
+            margin: 10px auto;
+            display: flex;
+            padding: 5px;
+            justify-content: space-between;
+            font-size: 22px;
+
+        }
+
+        .scoreContainer {
+            background-color: #bbada0;
+
+            border-radius: 5%;
+            margin-right: 5px;
+            width: 70px;
+            text-align: center;
+        }
+
+
+
+        .scoreContainer span {
+            font-weight: bold;
+            color: #eee;
+            font-size: 12px;
+        }
+
+        .score {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            letter-spacing: 2px;
+            font-weight: bold;
+
+
+
+        }
+
+
+        .bestScoreContainer {
+            background-color: #bbada0;
+
+            border-radius: 5%;
+            width: 120px;
+
+            text-align: center;
+        }
+
+
+
+        .bestScoreContainer span {
+            font-weight: bold;
+            color: #eee;
+            font-size: 12px;
+        }
+
+        .bestScore {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            letter-spacing: 2px;
+            font-weight: bold;
+
+
+
+        }
+
+        .sub {
+            display: flex;
+        }
+
+        .btn {
+            background-color: #8f7a66;
+            font-size: 17px;
+            font-weight: bold;
+            color: #f9f6f2;
+            outline: 0;
+            border: 0;
+            border-radius: 3px;
+            cursor: pointer;
+            padding: 0 14px;
+            height: 40px;
+            align-self: flex-end;
+        }
+
+        .btn-1 {
+            background-color: #8f7a66;
+            font-size: 22px;
+            font-weight: bold;
+            color: #f9f6f2;
+            outline: 0;
+            border: 0;
+            border-radius: 3px;
+            cursor: pointer;
+            padding: 0 14px;
+            height: 40px;
+
+        }
+
+        .gameover {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px 0;
+            width: 500px;
+            height: 500px;
+            border-radius: 1%;
+            font-size: 30px;
+            z-index: -1;
+            flex-direction: column;
+            background-color: #b7a798a8;
+            transform: scale(0.6, 0.6);
+            transition: transform 1s;
+        }
+
+        @media (max-width: 500px) {
+
+            .viewCube {
+                width: 67.5px;
+                height: 67.5px;
+                float: left;
+                margin-left: 10px;
+                margin-bottom: 10px;
+            }
+
+            .btn {
+                font-size: 12px;
+
+                padding: 0 8px;
+                height: 30px;
+
+            }
+
+            .btn-1 {
+                font-size: 12px;
+
+                padding: 0 8px;
+                height: 30px;
+
+            }
+
+            .scoreContainer span {
+
+                font-size: 9px;
+            }
+
+            .bestScoreContainer span {
+
+                font-size: 9px;
+            }
+
+            .realCube {
+                font-size: 27px;
+            }
+
+            .scoreContainer {
+                width: 50px;
+            }
+
+            .mainContainer {
+                width: 320px;
+            }
+
+            .viewCubesContainer {
+                height: 320px;
+
+
+
+                padding-top: 10px;
+                padding-right: 10px;
+
+            }
+
+            .bestScoreContainer {
+                width: 80px;
+            }
+
+            .gameover {
+                width: 320px;
+                height: 320px;
+                font-size: 20px;
+            }
+
+            .mainScoreContainer {
+                font-size: 15px;
+            }
+        }
+
+        .boxsha {
+            box-shadow: rgb(250 240 60) 0px 0px 20px;
+        }
+
+        #scoreAnim {
+            position: absolute;
+            color: rgb(73, 72, 72);
+            transform: translate(60%, 0);
+            font-weight: bold;
+
+            bottom: 0px;
+            visibility: hidden;
+            transition: bottom 400ms linear;
+        }
+    </style>
 </head>
 
 <body>
@@ -174,7 +449,11 @@
             realCube.style.left = getXP(r, c) + "px";
             realCube.style.top = getYP(r, c) + "px";
             coloringEle(realCube);
+
             realCube.style.transform = "scale(1,1)"
+            setTimeout(() => {
+                insertAfter(realCube, getELByRC(r, c));
+            }, 150)
             checkPoint();
 
         }
@@ -201,7 +480,7 @@
                     let switchJI = (i * m) + (j * l);
 
 
-                    if (arrOfP[switchIJ][switchJI] && isThisARealCube(getXR(switchIJ, switchJI), getYR(switchIJ, switchJI))) {
+                    if (arrOfP[switchIJ][switchJI] && isThisARealCube(getELByRC(switchIJ, switchJI).nextElementSibling)) {
                         for (let k = i + n; ;) {
 
 
@@ -253,7 +532,7 @@
                         arrOfP[switchNewI][switchNewJ] *= 2;
                         arrOfP[switchIJ][switchJI] = 0;
                         moveToThisPos(switchIJ, switchJI, switchNewI, switchNewJ)
-                        setTimeout(deleteEle, 210, switchNewI, switchNewJ);
+                        setTimeout(deleteEle, 250, switchNewI, switchNewJ);
                     }
                     if (ty == "real") {
                         lagelMove = false;
@@ -603,17 +882,21 @@
 
 
         function moveToThisPos(oldR, oldC, newR, newC) {
-            let mainEle = document.elementFromPoint(getXR(oldR, oldC), getYR(oldR, oldC));
+            let mainEle = getELByRC(oldR, oldC).nextElementSibling;
 
             mainEle.style.left = getXP(newR, newC) + "px";
             mainEle.style.top = getYP(newR, newC) + "px";
+            setTimeout(() => {
+                insertAfter(mainEle, getELByRC(newR, newC))
+
+            }, 150)
             action = true;
         }
 
 
 
         function deleteEle(r, c) {
-            let ele = document.elementFromPoint(getXR(r, c), getYR(r, c));
+            let ele = getELByRC(r, c).nextElementSibling;
             if (ele.classList.contains("realCube")) {
 
                 ele.remove();
@@ -622,7 +905,7 @@
         }
 
         function increaseValue(r, c) {
-            let ele = document.elementFromPoint(getXR(r, c), getYR(r, c));
+            let ele = getELByRC(r, c).nextElementSibling;
             if (ele.classList.contains("realCube")) {
                 ele.textContent = arrOfP[r][c];
                 score += arrOfP[r][c];
@@ -703,7 +986,9 @@
 
 
 
-
+        function getELByRC(r, c) {
+            return document.querySelector(".row-" + r + "col-" + c);
+        }
 
         function getXP(r, c) {
             return (document.querySelector(".row-" + r + "col-" + c).getBoundingClientRect().left - viewCubesContainer.getBoundingClientRect().left);
@@ -713,16 +998,14 @@
             return (document.querySelector(".row-" + r + "col-" + c).getBoundingClientRect().top - viewCubesContainer.getBoundingClientRect().top);
         }
 
-        function getXR(r, c) {
+        // function getXR(r, c) {
 
-            return document.querySelector(".row-" + r + "col-" + c).getBoundingClientRect().left;
-        }
+        //     return document.querySelector(".row-" + r + "col-" + c).getBoundingClientRect().left;
+        // }
 
-        function getYR(r, c) {
-            return document.querySelector(".row-" + r + "col-" + c).getBoundingClientRect().top;
-        }
-
-
+        // function getYR(r, c) {
+        //     return document.querySelector(".row-" + r + "col-" + c).getBoundingClientRect().top;
+        // }
 
 
 
@@ -732,8 +1015,10 @@
 
 
 
-        function isThisARealCube(x, y) {
-            return document.elementFromPoint(x, y).classList.contains("realCube");
+
+
+        function isThisARealCube(E) {
+            return E.classList.contains("realCube");
         }
 
 
@@ -755,7 +1040,9 @@
         })
 
 
-
+        function insertAfter(newNode, existingNode) {
+            existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+        }
 
         let touchstartX = 0;
         let touchendX = 0;
@@ -784,14 +1071,14 @@
 
         }
 
-        viewCubesContainer.addEventListener('touchstart', e => {
-            e.preventDefault()
+        document.addEventListener('touchstart', e => {
+
             touchstartX = e.changedTouches[0].screenX
             touchstartY = e.changedTouches[0].screenY
         })
 
-        viewCubesContainer.addEventListener('touchend', e => {
-            e.preventDefault()
+        document.addEventListener('touchend', e => {
+
             touchendX = e.changedTouches[0].screenX
             touchendY = e.changedTouches[0].screenY
             checkDirection()
@@ -847,6 +1134,8 @@
 // function isThisAViewlCube(x, y) {
 //     return document.elementsFromPoint(x, y)[1].classList.contains("viewCube");
 // }
+
+
 
 
 
