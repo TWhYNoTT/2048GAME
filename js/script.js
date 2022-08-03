@@ -717,46 +717,6 @@ document.addEventListener("keydown", (event) => {
 
 
 
-let touchstartX = 0;
-let touchendX = 0;
-let touchstartY = 0;
-let touchendY = 0;
-
-function checkDirection() {
-    let hor = Math.abs(touchendX - touchstartX)
-    let ver = Math.abs(touchendY - touchstartY)
-    if (!wait0) {
-        if (hor < ver) {
-            if (touchendY < touchstartY)
-                move("real", 1, 0, -1);
-            else
-                move("real", 1, 0, 1);
-
-        }
-        else {
-            if (touchendX > touchstartX)
-                move("real", 0, 1, 1);
-            else if (touchendX < touchstartX)
-                move("real", 0, 1, -1);
-
-        }
-    }
-
-}
-
-document.addEventListener('touchstart', e => {
- 
-    touchstartX = e.changedTouches[0].screenX
-    touchstartY = e.changedTouches[0].screenY
-})
-
-document.addEventListener('touchend', e => {
-
-    touchendX = e.changedTouches[0].screenX
-    touchendY = e.changedTouches[0].screenY
-    checkDirection()
-})
-
 
 
 
