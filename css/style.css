@@ -12,6 +12,7 @@ body {
 
     margin: 10px auto;
     position: relative;
+    touch-action: none;
 }
 
 .viewCubesContainer {
@@ -27,6 +28,7 @@ body {
     background-color: #bbada0;
     position: absolute;
     border-radius: 1%;
+    touch-action: none;
 
 
 }
