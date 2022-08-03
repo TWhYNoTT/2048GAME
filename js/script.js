@@ -736,7 +736,7 @@ function checkDirection() {
         else {
             if (touchendX > touchstartX)
                 move("real", 0, 1, 1);
-            else
+            else if (touchendX < touchstartX)
                 move("real", 0, 1, -1);
 
         }
