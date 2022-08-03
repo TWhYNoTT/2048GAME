@@ -138,9 +138,7 @@ function createElementInThisPos(r, c, val) {
     checkPoint();
 
 }
-document.addEventListener("resize", (e) => {
 
-})
 
 function move(ty, l, m, n) {
 
@@ -712,11 +710,13 @@ function checkDirection() {
 }
 
 document.addEventListener('touchstart', e => {
+    e.preventDefault()
     touchstartX = e.changedTouches[0].screenX
     touchstartY = e.changedTouches[0].screenY
 })
 
 document.addEventListener('touchend', e => {
+    e.preventDefault()
     touchendX = e.changedTouches[0].screenX
     touchendY = e.changedTouches[0].screenY
     checkDirection()

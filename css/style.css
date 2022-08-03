@@ -179,10 +179,38 @@ body {
 }
 
 @media (max-width: 500px) {
+    .btn {
+        font-size: 12px;
 
+        padding: 0 8px;
+        height: 30px;
+
+    }
+
+    .btn-1 {
+        font-size: 12px;
+
+        padding: 0 8px;
+        height: 30px;
+
+    }
+
+    .scoreContainer span {
+
+        font-size: 9px;
+    }
+
+    .bestScoreContainer span {
+
+        font-size: 9px;
+    }
+
+    .realCube {
+        font-size: 30px;
+    }
 
     .scoreContainer {
-        width: 35px;
+        width: 50px;
     }
 
     .mainContainer {
@@ -194,11 +222,16 @@ body {
     }
 
     .bestScoreContainer {
-        width: 60px;
+        width: 80px;
     }
 
     .gameover {
         width: 320px;
         height: 320px;
+        font-size: 20px;
+    }
+
+    .mainScoreContainer {
+        font-size: 15px;
     }
 }
