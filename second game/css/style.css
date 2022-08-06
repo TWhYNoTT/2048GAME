@@ -21,6 +21,13 @@
 
 }
 
+@media (max-width: 760px) {
+    .mainContainer {
+        width: 400px;
+        height: 320px;
+    }
+}
+
 .fruitImg {
     visibility: visible;
     z-index: 2;

@@ -4,8 +4,8 @@ let sw;
 window.ondragstart = function () { return false; }
 
 let pushUp = [
-    { transform: 'rotateZ(-15deg) scale(0.25)', bottom: '-100px' },
-    { transform: 'rotateZ(0deg)  scale(0.25)', bottom: '200px' }
+    { transform: 'rotateZ(-15deg) scale(0.25)', bottom: '-200px' },
+    { transform: 'rotateZ(0deg)  scale(0.25)', bottom: '250px' }
 
 ];
 
@@ -86,7 +86,7 @@ function push(divEl) {
     a = setTimeout(() => {
 
         divEl.animate(pullDown, pullDownTF);
-        setTimeout(() => {
+        w = setTimeout(() => {
 
             divEl.nextElementSibling.remove();
             divEl.remove();
@@ -100,17 +100,19 @@ function push(divEl) {
 
 
 function slice(el, x, y) {
-    clearTimeout(a)
+
+
     el.parentElement.nextElementSibling.style.left = (el.parentElement.getBoundingClientRect().left - el.parentElement.parentElement.getBoundingClientRect().left) + "px";
     el.parentElement.nextElementSibling.style.top = (el.parentElement.getBoundingClientRect().top - el.parentElement.parentElement.getBoundingClientRect().top) + "px";
     el.style.visibility = "hidden";
     el.nextElementSibling.style.visibility = "visible";
     el.nextElementSibling.nextElementSibling.style.visibility = "visible";
     el.parentElement.nextElementSibling.style.visibility = "visible";
+
     el.nextElementSibling.animate(fallLeft, fallTF);
     el.nextElementSibling.nextElementSibling.animate(fallRight, fallTF);
     el.parentElement.animate(pull0Down, pullDownTF)
-    setTimeout(() => { el.parentElement.nextElementSibling.remove(); el.parentElement.remove() }, 1500)
+
 }
 
 
@@ -152,6 +154,22 @@ divMainContainer.addEventListener("mousemove", (event) => {
 
 }
 );
+
+
+// divMainContainer.addEventListener("touchmove", e => {
+//     e.preventDefault();
+
+
+//     xOfMouse = e.changedTouches[0].screenX;
+//     yOfMouse = e.changedTouches[0].screenY;
+
+//     swipeEf()
+
+//     if (e.target.className == "fruitImg") {
+//         slice(e.target, xOfMouse, yOfMouse);
+
+//     }
+// });
 
 
 function swipeEf() {
@@ -201,11 +219,11 @@ function creatEle(ty) {
         let lfthf = document.createElement("img");
         let splat = document.createElement("img");
         let num = Math.ceil(Math.random() * 4);
-        fruitmage.setAttribute("src", `/images/Fruit${num}.png`)
-        fruitmage.setAttribute("fruit", num)
-        righthf.setAttribute("src", `/images/Right${num}.png`)
-        lfthf.setAttribute("src", `/images/Left${num}.png`)
-        splat.setAttribute("src", `/images/Splat${num}.png`)
+        fruitmage.src = `images/Fruit${num}.png`
+
+        righthf.src = `images/Right${num}.png`
+        lfthf.src = `images/Left${num}.png`
+        splat.src = `images/Splat${num}.png`
         conDiv.classList.add("slice");
         fruitmage.classList.add("fruitImg");
         righthf.classList.add("half");
@@ -216,6 +234,7 @@ function creatEle(ty) {
         conDiv.appendChild(lfthf);
         conDiv.appendChild(righthf);
 
+        conDiv.style.left = Math.ceil(Math.random() * 500) + "px"
         righthf.style.right = "0px"
         lfthf.style.bottom = "0px"
 
@@ -226,5 +245,5 @@ function creatEle(ty) {
     }
 }
 
-setInterval(creatEle, 5000, "fruit");
+setInterval(creatEle, 500, "fruit");
 
