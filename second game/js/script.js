@@ -1,4 +1,13 @@
 let divMainContainer = document.querySelector(".mainContainer");
+let scoreSpan = document.querySelector(".score");
+let livesImg = document.querySelector(".livesImg");
+let gameoverContainer = document.querySelector(".gameover");
+let startOverAud = document.querySelector(".startOver");
+let newgamebtn = document.querySelector(".newgame-btn");
+let isNewGame = true;
+let score = 0;
+let lives = 0;
+
 let a;
 let sw;
 window.ondragstart = function () { return false; }
@@ -10,7 +19,7 @@ let pushUp = [
 ];
 
 let pushUpTF = {
-    duration: 1500,
+    duration: 1100,
     iterations: 1,
     easing: 'ease',
     fill: 'forwards'
@@ -18,7 +27,7 @@ let pushUpTF = {
 
 let pullDown = [
     { transform: 'rotateZ(0deg)  scale(0.25)' },
-    { transform: 'rotateZ(15deg)  scale(0.25)', bottom: '-300px' }
+    { transform: 'rotateZ(15deg)  scale(0.25)', bottom: '-400px' }
 ];
 
 let pull0Down = [
@@ -27,7 +36,7 @@ let pull0Down = [
 ];
 
 let pullDownTF = {
-    duration: 1500,
+    duration: 1000,
     iterations: 1,
     easing: 'ease-in',
     fill: 'forwards'
@@ -78,11 +87,12 @@ sw = document.querySelectorAll(".sw");
 
 function push(divEl) {
 
+
     var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
     var rdeg = Math.ceil(Math.random() * 360)
     var rdegs = rdeg * plusOrMinus;
     pushUp = [
-        { transform: `rotateZ(${rdegs}deg) scale(0.25)`, bottom: '-200px' },
+        { transform: `rotateZ(${rdegs}deg) scale(0.25)`, bottom: '-300px' },
         { transform: `rotateZ(${rdegs + 15}deg)  scale(0.25)`, bottom: '250px' }
 
     ];
@@ -92,15 +102,20 @@ function push(divEl) {
     ];
 
     divEl.animate(pushUp, pushUpTF);
-    a = setTimeout(() => {
+    setTimeout(() => {
 
         divEl.animate(pullDown, pullDownTF);
-        w = setTimeout(() => {
+        setTimeout(() => {
 
+            if (!divEl.classList.contains("sliced") && lives < 3) {
+                lives++;
+                livesImg.src = `/images/${lives}.png`
+            }
             divEl.nextElementSibling.remove();
             divEl.remove();
-        }, 1500)
-    }, 1500)
+        }, 1000)
+    }, 1000)
+
 
 }
 
@@ -110,18 +125,22 @@ function push(divEl) {
 
 function slice(el, x, y) {
 
+    if (lives < 3) {
+        el.parentElement.nextElementSibling.style.left = (el.parentElement.getBoundingClientRect().left - el.parentElement.parentElement.getBoundingClientRect().left) + "px";
+        el.parentElement.nextElementSibling.style.top = (el.parentElement.getBoundingClientRect().top - el.parentElement.parentElement.getBoundingClientRect().top) + "px";
+        el.style.visibility = "hidden";
+        el.nextElementSibling.style.visibility = "visible";
+        el.nextElementSibling.nextElementSibling.style.visibility = "visible";
+        el.nextElementSibling.nextElementSibling.nextElementSibling.play();
+        el.parentElement.nextElementSibling.style.visibility = "visible";
+        el.parentElement.classList.add("sliced");
 
-    el.parentElement.nextElementSibling.style.left = (el.parentElement.getBoundingClientRect().left - el.parentElement.parentElement.getBoundingClientRect().left) + "px";
-    el.parentElement.nextElementSibling.style.top = (el.parentElement.getBoundingClientRect().top - el.parentElement.parentElement.getBoundingClientRect().top) + "px";
-    el.style.visibility = "hidden";
-    el.nextElementSibling.style.visibility = "visible";
-    el.nextElementSibling.nextElementSibling.style.visibility = "visible";
-    el.nextElementSibling.nextElementSibling.nextElementSibling.play();
-    el.parentElement.nextElementSibling.style.visibility = "visible";
-
-    el.nextElementSibling.animate(fallLeft, fallTF);
-    el.nextElementSibling.nextElementSibling.animate(fallRight, fallTF);
-    //    el.parentElement.animate(pull0Down, pullDownTF)
+        el.nextElementSibling.animate(fallLeft, fallTF);
+        el.nextElementSibling.nextElementSibling.animate(fallRight, fallTF);
+        score += 10;
+        scoreSpan.innerHTML = score;
+        //    el.parentElement.animate(pull0Down, pullDownTF)
+    }
 
 }
 
@@ -243,7 +262,7 @@ setInterval(() => {
 
 
 function creatEle(ty) {
-    if (ty = "fruit") {
+    if (ty = "fruit" && lives < 3) {
         let conDiv = document.createElement("div");
 
         let fruitmage = document.createElement("img");
@@ -280,4 +299,39 @@ function creatEle(ty) {
 }
 
 setInterval(creatEle, 500, "fruit");
+setInterval(() => {
+    if (lives > 2 && isNewGame) {
+        gameOver();
+        isNewGame = false;
+    }
 
+}, 10);
+
+
+
+function gameOver() {
+    setTimeout(() => {
+        gameoverContainer.style.top = "0px";
+        startOverAud.src = "/media/Game-over.wav";
+        startOverAud.play();
+        setTimeout(() => {
+            newgamebtn.style.visibility = "visible";
+        }, 2000);
+    }, 1000);
+}
+
+function newGame() {
+
+    newgamebtn.style.visibility = "hidden";
+    setTimeout(() => {
+        gameoverContainer.style.top = "-100%";
+        startOverAud.src = "/media/Game-start.wav";
+        startOverAud.play()
+
+        setTimeout(() => {
+            lives = 0;
+            isNewGame = true;
+            livesImg.src = `/images/${lives}.png`
+        }, 1100)
+    }, 1000);
+}

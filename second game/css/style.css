@@ -4,6 +4,8 @@
     margin: 0;
     user-select: none;
     touch-action: none;
+    font-family: "Chiller", "helvetica neue", Arial, sans-serif;
+    cursor: url("../images/Particle.png") auto;
 
 }
 
@@ -52,7 +54,7 @@
 }
 
 .divsw {
-    z-index: 2;
+    z-index: 7;
     position: absolute;
 
 }
@@ -64,9 +66,7 @@
     position: absolute;
     visibility: hidden;
     border-radius: 50%;
-    box-shadow: 1px 1px 18px 15px #7b939e;
-
-
+    box-shadow: 1px 1px 5px 5px #8bc34a;
 }
 
 .splatdiv {
@@ -83,4 +83,65 @@
 
 audio {
     visibility: hidden;
+}
+
+.melonimg {
+    transform: scale(0.75);
+
+}
+
+.livesImg {
+    transform: scale(0.6);
+
+}
+
+.scoreContainer {
+
+    display: flex;
+
+    align-items: center;
+}
+
+.score {
+    margin: 0px 10px;
+
+    font-size: 40px;
+    font-weight: bold;
+    color: #4caf50;
+}
+
+.scoreMainContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.gameover {
+    position: absolute;
+    padding: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 520px;
+    z-index: 5;
+    top: -100%;
+    transition: top 3s;
+
+}
+
+.gameoverimg {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.newgame-btn {
+    visibility: hidden;
+    font-weight: bold;
+    font-size: 35px;
+    background-color: #d62e00;
+    border: 0;
+    border-radius: 7%;
+    padding: 0px 15px;
+    letter-spacing: 2px;
+    cursor: pointer;
 }
