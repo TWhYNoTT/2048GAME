@@ -3,6 +3,7 @@
     padding: 0;
     margin: 0;
     user-select: none;
+    touch-action: none;
 
 }
 
@@ -15,7 +16,7 @@
 
     overflow: hidden;
     background-image: url("../images/Backdrop.png");
-
+    background-repeat: no-repeat;
     background-size: cover;
 
 
@@ -24,7 +25,7 @@
 @media (max-width: 760px) {
     .mainContainer {
         width: 400px;
-        height: 320px;
+        height: 420px;
     }
 }
 
@@ -78,4 +79,8 @@
     visibility: hidden;
     position: absolute;
 
+}
+
+audio {
+    visibility: hidden;
 }

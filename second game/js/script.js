@@ -107,6 +107,7 @@ function slice(el, x, y) {
     el.style.visibility = "hidden";
     el.nextElementSibling.style.visibility = "visible";
     el.nextElementSibling.nextElementSibling.style.visibility = "visible";
+    el.nextElementSibling.nextElementSibling.nextElementSibling.play();
     el.parentElement.nextElementSibling.style.visibility = "visible";
 
     el.nextElementSibling.animate(fallLeft, fallTF);
@@ -139,14 +140,34 @@ divMainContainer.addEventListener("mouseup", () => {
 
 let xOfMouse;
 let yOfMouse;
+// let aud0 = document.createElement("AUDIO");
+// divMainContainer.append(aud0)
+// let sndSm = 0;
+// let ply = true;
+// let lastx;
 divMainContainer.addEventListener("mousemove", (event) => {
     xOfMouse = event.clientX;
     yOfMouse = event.clientY;
+
     if (isMouseDown) {
         swipeEf()
-
+        // if (!sndSm && ply) {
+        //     aud0.src = `media/Sword-swipe-1.wav`;
+        //     aud0.play()
+        //     ply = false;
+        //     sndSm = 1;
+        //     setTimeout(() => { ply = true }, 1000)
+        // }
+        // else if (sndSm && ply) {
+        //     aud0.src = `media/Sword-swipe-2.wav`;
+        //     aud0.play()
+        //     sndSm = 0;
+        //     ply = false;
+        //     setTimeout(() => { ply = true }, 1000)
+        // }
         if (event.target.className == "fruitImg") {
             slice(event.target, xOfMouse, yOfMouse);
+
 
         }
     }
@@ -171,11 +192,13 @@ divMainContainer.addEventListener("mousemove", (event) => {
 //     }
 // });
 
-
 function swipeEf() {
     sw.forEach((elem) => {
 
+
         elem.style.visibility = "visible";
+
+
 
     })
 }
@@ -218,9 +241,10 @@ function creatEle(ty) {
         let righthf = document.createElement("img");
         let lfthf = document.createElement("img");
         let splat = document.createElement("img");
+        let aud = document.createElement("AUDIO");
         let num = Math.ceil(Math.random() * 4);
         fruitmage.src = `images/Fruit${num}.png`
-
+        aud.src = `media/slice${num}.wav`
         righthf.src = `images/Right${num}.png`
         lfthf.src = `images/Left${num}.png`
         splat.src = `images/Splat${num}.png`
@@ -233,6 +257,7 @@ function creatEle(ty) {
         conDiv.appendChild(fruitmage);
         conDiv.appendChild(lfthf);
         conDiv.appendChild(righthf);
+        conDiv.appendChild(aud);
 
         conDiv.style.left = Math.ceil(Math.random() * 500) + "px"
         righthf.style.right = "0px"
