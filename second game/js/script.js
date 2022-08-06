@@ -78,9 +78,18 @@ sw = document.querySelectorAll(".sw");
 
 function push(divEl) {
 
+    var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+    var rdeg = Math.ceil(Math.random() * 360)
+    var rdegs = rdeg * plusOrMinus;
+    pushUp = [
+        { transform: `rotateZ(${rdegs}deg) scale(0.25)`, bottom: '-200px' },
+        { transform: `rotateZ(${rdegs + 15}deg)  scale(0.25)`, bottom: '250px' }
 
-
-
+    ];
+    let pullDown = [
+        { transform: `rotateZ(${rdegs + 15}deg) scale(0.25)` },
+        { transform: `rotateZ(${rdegs + 30}deg)  scale(0.25)`, bottom: '-300px' }
+    ];
 
     divEl.animate(pushUp, pushUpTF);
     a = setTimeout(() => {
@@ -112,7 +121,7 @@ function slice(el, x, y) {
 
     el.nextElementSibling.animate(fallLeft, fallTF);
     el.nextElementSibling.nextElementSibling.animate(fallRight, fallTF);
-    el.parentElement.animate(pull0Down, pullDownTF)
+    //    el.parentElement.animate(pull0Down, pullDownTF)
 
 }
 
