@@ -109,7 +109,7 @@ function push(divEl) {
 
             if (!divEl.classList.contains("sliced") && lives < 3) {
                 lives++;
-                livesImg.src = `/images/${lives}.png`
+                livesImg.src = `images/${lives}.png`
             }
             divEl.nextElementSibling.remove();
             divEl.remove();
@@ -312,7 +312,7 @@ setInterval(() => {
 function gameOver() {
     setTimeout(() => {
         gameoverContainer.style.top = "0px";
-        startOverAud.src = "/media/Game-over.wav";
+        startOverAud.src = "media/Game-over.wav";
         startOverAud.play();
         setTimeout(() => {
             newgamebtn.style.visibility = "visible";
@@ -325,13 +325,13 @@ function newGame() {
     newgamebtn.style.visibility = "hidden";
     setTimeout(() => {
         gameoverContainer.style.top = "-100%";
-        startOverAud.src = "/media/Game-start.wav";
+        startOverAud.src = "media/Game-start.wav";
         startOverAud.play()
 
         setTimeout(() => {
             lives = 0;
             isNewGame = true;
-            livesImg.src = `/images/${lives}.png`
+            livesImg.src = `images/${lives}.png`
         }, 1100)
     }, 1000);
 }
