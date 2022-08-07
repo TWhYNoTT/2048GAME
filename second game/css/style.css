@@ -20,14 +20,14 @@
     background-image: url("../images/Backdrop.png");
     background-repeat: no-repeat;
     background-size: cover;
-    z-index: 1;
+
 
 
 }
 
 @media (max-width: 760px) {
     .mainContainer {
-        width: 400px;
+        width: 320px;
         height: 420px;
     }
 }
@@ -92,7 +92,8 @@ audio {
 }
 
 .livesImg {
-    transform: scale(0.6);
+    padding-top: 10px;
+    padding-right: 10px;
 
 }
 
@@ -145,4 +146,8 @@ audio {
     padding: 0px 15px;
     letter-spacing: 2px;
     cursor: pointer;
+}
+
+.sliced {
+    z-index: 1;
 }
