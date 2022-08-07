@@ -1,0 +1,162 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    user-select: none;
+    touch-action: none;
+    font-family: "Chiller", "helvetica neue", Arial, sans-serif;
+    cursor: url("../images/Particle.png") auto;
+
+}
+
+.mainContainer {
+    width: 760px;
+    height: 520px;
+    border: 1px solid black;
+    margin: auto;
+    position: relative;
+
+    overflow: hidden;
+    background-image: url("../images/Backdrop.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+
+
+}
+
+@media (max-width: 760px) {
+    .mainContainer {
+        width: 320px;
+        height: 420px;
+    }
+}
+
+.fruitImg {
+    visibility: visible;
+    z-index: 2;
+
+}
+
+
+.slice {
+    display: flex;
+    z-index: 3;
+    position: absolute;
+
+
+}
+
+.half {
+    position: absolute;
+    z-index: 1;
+    visibility: hidden;
+
+}
+
+.divsw {
+    z-index: 7;
+    position: absolute;
+
+}
+
+.sw {
+    width: 4px;
+    height: 4px;
+    background-color: #b0d3e4;
+    position: absolute;
+    visibility: hidden;
+    border-radius: 50%;
+    box-shadow: 1px 1px 5px 5px #8bc34a;
+}
+
+.splatdiv {
+
+    position: absolute;
+
+}
+
+.splat {
+    visibility: hidden;
+    position: absolute;
+
+}
+
+audio {
+    visibility: hidden;
+}
+
+.melonimg {
+    transform: scale(0.75);
+
+}
+
+.livesImg {
+    padding-top: 10px;
+    padding-right: 10px;
+
+}
+
+.scoreContainer {
+
+    display: flex;
+
+    align-items: center;
+}
+
+.score {
+    margin: 0px 10px;
+
+    font-size: 40px;
+    font-weight: bold;
+    color: #4caf50;
+}
+
+.scoreMainContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.gameover {
+    position: absolute;
+    padding: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 520px;
+    z-index: 5;
+    top: -100%;
+    transition: top 3s;
+
+}
+
+.gameoverimg {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.newgame-btn {
+    visibility: hidden;
+    font-weight: bold;
+    font-size: 35px;
+    background-color: #d62e00;
+    border: 0;
+    border-radius: 7%;
+    padding: 0px 15px;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.sliced {
+    z-index: 1;
+}
+
+.ex {
+    color: #d62e00;
+    font-size: 70px;
+    font-weight: bold;
+    display: flex;
+    position: absolute;
+
+}
