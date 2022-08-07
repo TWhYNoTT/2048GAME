@@ -20,6 +20,7 @@
     background-image: url("../images/Backdrop.png");
     background-repeat: no-repeat;
     background-size: cover;
+    z-index: 1;
 
 
 }
@@ -42,7 +43,7 @@
     display: flex;
     z-index: 3;
     position: absolute;
-    left: 200px;
+
 
 }
 

@@ -27,7 +27,7 @@ let pushUpTF = {
 
 let pullDown = [
     { transform: 'rotateZ(0deg)  scale(0.25)' },
-    { transform: 'rotateZ(15deg)  scale(0.25)', bottom: '-400px' }
+    { transform: 'rotateZ(15deg)  scale(0.25)', bottom: (divMainContainer.getBoundingClientRect().height / 1.2) + 'px' }
 ];
 
 let pull0Down = [
@@ -44,8 +44,8 @@ let pullDownTF = {
 
 let fallLeft = [
     { left: '0px', transform: 'rotateZ(0deg)' },
-    { left: '-700px', transform: 'rotateZ(-100deg)' },
-    { left: '-700px', transform: 'rotateZ(-100deg)' },
+    { left: '-400px', transform: 'rotateZ(-80deg)' },
+
 
 
 ];
@@ -60,8 +60,8 @@ let fallTF = {
 
 let fallRight = [
     { right: '0px', transform: 'rotateZ(0deg)' },
-    { right: '-700px', transform: 'rotateZ(100deg)' },
-    { right: '-700px', transform: 'rotateZ(100deg)' },
+    { right: '-400px', transform: 'rotateZ(80deg)' },
+
 
 
 ];
@@ -92,13 +92,13 @@ function push(divEl) {
     var rdeg = Math.ceil(Math.random() * 360)
     var rdegs = rdeg * plusOrMinus;
     pushUp = [
-        { transform: `rotateZ(${rdegs}deg) scale(0.25)`, bottom: '-300px' },
-        { transform: `rotateZ(${rdegs + 15}deg)  scale(0.25)`, bottom: '250px' }
+        { transform: `rotateZ(${rdegs}deg) `, bottom: '-100px' },
+        { transform: `rotateZ(${rdegs + 15}deg)  `, bottom: (divMainContainer.getBoundingClientRect().height / 1.7) + 'px' }
 
     ];
     let pullDown = [
-        { transform: `rotateZ(${rdegs + 15}deg) scale(0.25)` },
-        { transform: `rotateZ(${rdegs + 30}deg)  scale(0.25)`, bottom: '-300px' }
+        { transform: `rotateZ(${rdegs + 15}deg) ` },
+        { transform: `rotateZ(${rdegs + 30}deg)  `, bottom: '-300px' }
     ];
 
     divEl.animate(pushUp, pushUpTF);
@@ -203,22 +203,31 @@ divMainContainer.addEventListener("mousemove", (event) => {
 
 }
 );
+divMainContainer.addEventListener("touchstart", () => {
+    isMouseDown = true
+});
+divMainContainer.addEventListener("touchend", () => {
+    isMouseDown = false;
+    sw.forEach((elem) => {
+        elem.style.visibility = "hidden";
+    })
+});
+divMainContainer.addEventListener("touchmove", e => {
+    e.preventDefault();
 
 
-// divMainContainer.addEventListener("touchmove", e => {
-//     e.preventDefault();
+    xOfMouse = e.changedTouches[0].clientX;
+    yOfMouse = e.changedTouches[0].clientY;
 
+    swipeEf()
+    let elmm = document.elementFromPoint(xOfMouse, yOfMouse)
 
-//     xOfMouse = e.changedTouches[0].screenX;
-//     yOfMouse = e.changedTouches[0].screenY;
+    if (elmm.className == "fruitImg") {
 
-//     swipeEf()
+        slice(elmm, xOfMouse, yOfMouse);
 
-//     if (e.target.className == "fruitImg") {
-//         slice(e.target, xOfMouse, yOfMouse);
-
-//     }
-// });
+    }
+});
 
 function swipeEf() {
     sw.forEach((elem) => {
@@ -287,7 +296,7 @@ function creatEle(ty) {
         conDiv.appendChild(righthf);
         conDiv.appendChild(aud);
 
-        conDiv.style.left = Math.ceil(Math.random() * 500) + "px"
+        conDiv.style.left = Math.ceil(Math.random() * (divMainContainer.getBoundingClientRect().width - 100)) + "px"
         righthf.style.right = "0px"
         lfthf.style.bottom = "0px"
 
@@ -314,6 +323,7 @@ function gameOver() {
         gameoverContainer.style.top = "0px";
         startOverAud.src = "media/Game-over.wav";
         startOverAud.play();
+        score = 0;
         setTimeout(() => {
             newgamebtn.style.visibility = "visible";
         }, 2000);
