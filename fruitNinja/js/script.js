@@ -304,7 +304,7 @@ divMainContainer.addEventListener("touchmove", e => {
     swipeEf()
     let elmm = document.elementFromPoint(xOfMouse, yOfMouse)
 
-    if (elmm.className == "fruitImg") {
+    if (elmm.className == "fruitImg" || elmm.parentElement.classList.contains("bomb")) {
 
         slice(elmm, xOfMouse, yOfMouse);
 
