@@ -12,6 +12,81 @@ let isMouseDown = false;
 let sw;
 window.ondragstart = function () { return false; }
 
+
+
+
+function genrateAnimation(el) {
+
+    var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+    var rdeg = Math.ceil(Math.random() * 360)
+    var rdegs = rdeg * plusOrMinus;
+
+    let leftRandomStart = Math.ceil(Math.random() * (divMainContainer.getBoundingClientRect().width - 100)) + "px";
+    let leftRandomEnd = Math.ceil(Math.random() * (divMainContainer.getBoundingClientRect().width - 100)) + "px";
+    let bottomEnd = (divMainContainer.getBoundingClientRect().height / 1.7) + 'px';
+
+    let xMoving = [
+        {
+            left: leftRandomStart,
+            transform: `rotateZ(${rdegs}deg)`
+        },
+        {
+            left: leftRandomEnd,
+            transform: `rotateZ(${rdegs + 60}deg)`
+        }
+    ]
+    let yMoving = [
+        {
+            bottom: '-200px',
+
+        },
+        {
+            bottom: bottomEnd
+        }
+
+    ]
+
+    let xMovingTF = {
+        duration: 2200,
+        iterations: Infinity,
+
+
+    };
+
+    let yMovingTF = {
+        duration: 1100,
+        iterations: Infinity,
+        easing: 'ease-in-out',
+        direction: "alternate"
+
+
+    };
+
+    let pushbomb = [
+        { transform: `rotateZ(0deg) ` },
+        { transform: `rotateZ(2160deg)  ` }
+    ];
+
+    let pushbombTF = {
+        duration: 6000,
+        iterations: Infinity,
+        fill: 'forwards'
+    };
+
+    el.animate(xMoving, xMovingTF);
+    el.animate(yMoving, yMovingTF);
+
+
+
+    if (el.classList.contains("bomb"))
+        el.animate(pushbomb, pushbombTF);
+}
+
+
+
+
+
+
 let pullDown = [
 
     { bottom: '250px' }
@@ -93,49 +168,14 @@ function push(divEl) {
 
 
 
-        let pushUp;
-        let pullDown;
-        var plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-        var rdeg = Math.ceil(Math.random() * 360)
-        var rdegs = rdeg * plusOrMinus;
-        if (divEl.classList.contains("slice")) {
-            pushUp = [
-                { transform: `rotateZ(${rdegs}deg) `, bottom: '-100px' },
-                { transform: `rotateZ(${rdegs + 30}deg)  `, bottom: (divMainContainer.getBoundingClientRect().height / 1.7) + 'px' }
 
-            ];
-            pullDown = [
-                { transform: `rotateZ(${rdegs + 30}deg) ` },
-                { transform: `rotateZ(${rdegs + 60}deg)  `, bottom: '-100px' }
-            ];
-        }
-        else {
-            pushUp = [
-                { bottom: '-100px' },
-                { bottom: (divMainContainer.getBoundingClientRect().height / 1.7) + 'px' }
+        genrateAnimation(divEl);
 
-            ];
-            pullDown = [
-                { bottom: '-100px' }
-            ];
-        }
-        let pushbomb = [
-            { transform: `rotateZ(0deg) ` },
-            { transform: `rotateZ(2160deg)  ` }
-        ];
-        let pushbombTF = {
-            duration: 6000,
-            iterations: Infinity,
-            fill: 'forwards'
-        };
-        divEl.animate(pushUp, pushUpTF);
 
-        if (divEl.classList.contains("bomb"))
-            divEl.animate(pushbomb, pushbombTF);
 
         setTimeout(() => {
 
-            divEl.animate(pullDown, pullDownTF);
+
 
 
 
@@ -181,8 +221,8 @@ function createExInThisPos(x) {
 function slice(el) {
 
     let sliceEf = [
-        { transform: 'rotateZ(45deg) scale(0)', visibility: 'visible' },
-        { transform: 'rotateZ(45deg) scale(1)', visibility: 'visible' },
+        { transform: 'scale(0)', visibility: 'visible' },
+        { transform: 'scale(1)', visibility: 'visible' },
 
 
 
@@ -353,64 +393,69 @@ setInterval(() => {
 
 
 function creatEle(ty) {
-    let conDiv = document.createElement("div");
-    let aud = document.createElement("AUDIO");
-    let mainImage = document.createElement("img");
-    conDiv.classList.add("movingel");
-    if (ty == "fruit" && lives < 3) {
+    let x = Math.floor(Math.random() * 3)
+    for (let i = 0; i < x; i++) {
+        let conDiv = document.createElement("div");
+        let aud = document.createElement("AUDIO");
+        let mainImage = document.createElement("img");
+        conDiv.classList.add("movingel");
+        if (ty == "fruit" && lives < 3) {
 
-        let righthf = document.createElement("img");
-        let lfthf = document.createElement("img");
-        let splat = document.createElement("img");
-        let sliceeff = document.createElement("img");
-        let num = Math.ceil(Math.random() * 5);
-        mainImage.src = `images/Fruit${num}.png`
-        aud.src = `media/slice${num}.wav`
-        righthf.src = `images/Right${num}.png`
-        lfthf.src = `images/Left${num}.png`
-        sliceeff.src = `images/sliceeff${num}.png`
-        splat.src = `images/Splat${num}.png`
-        conDiv.classList.add("slice");
-        mainImage.classList.add("fruitImg");
-        righthf.classList.add("half");
-        righthf.classList.add("lfthf");
-        lfthf.classList.add("half");
-        lfthf.classList.add("rithf");
-        sliceeff.classList.add("sliceeff");
+            let righthf = document.createElement("img");
+            let lfthf = document.createElement("img");
+            let splat = document.createElement("img");
+            let sliceeff = document.createElement("img");
+            let num = Math.ceil(Math.random() * 5);
+            mainImage.src = `images/Fruit${num}.png`
+            aud.src = `media/slice${num}.wav`
+            righthf.src = `images/Right${num}.png`
+            lfthf.src = `images/Left${num}.png`
+            sliceeff.src = `images/sliceeff${num}.png`
+            splat.src = `images/Splat${num}.png`
+            conDiv.classList.add("slice");
+            mainImage.classList.add("fruitImg");
+            righthf.classList.add("half");
+            righthf.classList.add("lfthf");
+            lfthf.classList.add("half");
+            lfthf.classList.add("rithf");
+            sliceeff.classList.add("sliceeff");
 
-        splat.classList.add("splat");
-        conDiv.appendChild(mainImage);
-        conDiv.appendChild(lfthf);
-        conDiv.appendChild(righthf);
-        conDiv.appendChild(aud);
-        conDiv.appendChild(sliceeff);
-
-        conDiv.style.left = Math.ceil(Math.random() * (divMainContainer.getBoundingClientRect().width - 100)) + "px"
-        righthf.style.right = "0px"
-        lfthf.style.bottom = "0px"
+            splat.classList.add("splat");
+            conDiv.appendChild(mainImage);
+            conDiv.appendChild(lfthf);
+            conDiv.appendChild(righthf);
+            conDiv.appendChild(aud);
+            conDiv.appendChild(sliceeff);
 
 
+            righthf.style.right = "0px"
+            lfthf.style.bottom = "0px"
 
-        divMainContainer.append(conDiv);
-        divMainContainer.append(splat);
 
-        push(conDiv)
 
-    }
-    else if (ty == "bomb" && lives < 3) {
-        conDiv.classList.add("bomb");
-        aud.src = `media/Bomb-explode.wav`
-        mainImage.src = `images/bomb.png`
-        conDiv.appendChild(mainImage);
-        conDiv.appendChild(aud);
-        conDiv.style.left = Math.ceil(Math.random() * (divMainContainer.getBoundingClientRect().width - 100)) + "px"
-        divMainContainer.append(conDiv);
-        push(conDiv)
+            divMainContainer.append(conDiv);
+            divMainContainer.append(splat);
+
+            push(conDiv)
+
+        }
+        else if (ty == "bomb" && lives < 3) {
+            conDiv.classList.add("bomb");
+            aud.src = `media/Bomb-explode.wav`
+            mainImage.src = `images/bomb.png`
+            conDiv.appendChild(mainImage);
+            conDiv.appendChild(aud);
+            conDiv.style.left = Math.ceil(Math.random() * (divMainContainer.getBoundingClientRect().width - 100)) + "px"
+            divMainContainer.append(conDiv);
+            push(conDiv)
+        }
     }
 }
 
-setInterval(creatEle, 1000, "fruit");
-setInterval(creatEle, 2500, "bomb");
+setInterval(creatEle, 500, "fruit");
+
+setInterval(creatEle, 2150, "bomb");
+
 setInterval(() => {
     if (lives > 2 && isNewGame && isGameOver) {
         gameOver();

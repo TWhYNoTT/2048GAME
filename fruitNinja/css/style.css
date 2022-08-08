@@ -41,7 +41,7 @@
 
 .slice {
     display: flex;
-    bottom: -100px;
+    bottom: -200px;
     z-index: 4;
     position: absolute;
 
