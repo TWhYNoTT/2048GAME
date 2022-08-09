@@ -23,7 +23,7 @@ function genrateAnimation(el) {
 
     let leftRandomStart = Math.ceil(Math.random() * (divMainContainer.getBoundingClientRect().width - 100)) + "px";
     let leftRandomEnd = Math.ceil(Math.random() * (divMainContainer.getBoundingClientRect().width - 100)) + "px";
-    let bottomEnd = (divMainContainer.getBoundingClientRect().height / 1.7) + 'px';
+    let bottomEnd = (divMainContainer.getBoundingClientRect().height / 1.5);
 
     let xMoving = [
         {
@@ -41,7 +41,7 @@ function genrateAnimation(el) {
 
         },
         {
-            bottom: bottomEnd
+            bottom: bottomEnd + 'px'
         }
 
     ]
@@ -62,24 +62,39 @@ function genrateAnimation(el) {
 
     };
 
-    let pushbomb = [
+    let pushBomb = [
+        { bottom: '-200px' },
+        { bottom: bottomEnd - 200 + 'px' }
+    ];
+
+    let rotateBomb = [
         { transform: `rotateZ(0deg) ` },
         { transform: `rotateZ(2160deg)  ` }
     ];
 
-    let pushbombTF = {
+    let rotateBombTF = {
         duration: 6000,
         iterations: Infinity,
         fill: 'forwards'
     };
+    let pushBombTF = {
+        duration: 1100,
+        iterations: Infinity,
+        easing: 'ease-in-out',
+        direction: "alternate"
+    };
+
+
 
     el.animate(xMoving, xMovingTF);
     el.animate(yMoving, yMovingTF);
 
+    if (el.classList.contains("bomb")) {
+        el.animate(pushBomb, pushBombTF);
+        el.animate(rotateBomb, rotateBombTF);
 
+    }
 
-    if (el.classList.contains("bomb"))
-        el.animate(pushbomb, pushbombTF);
 }
 
 
@@ -173,30 +188,30 @@ function push(divEl) {
 
 
 
+
+
+
+
+
+
         setTimeout(() => {
 
-
-
-
-
-            setTimeout(() => {
-
-                if (divEl.classList.contains("slice")) {
-                    if (!divEl.classList.contains("sliced") && lives < 3) {
-                        lives++;
-                        livesImg.src = `images/${lives}.png`
-                        createExInThisPos(divEl.getBoundingClientRect().left - divEl.parentElement.getBoundingClientRect().left)
-                        if (lives == 3)
-                            isGameOver = true;
-                    }
-
-                    divEl.nextElementSibling.remove();
-
+            if (divEl.classList.contains("slice")) {
+                if (!divEl.classList.contains("sliced") && lives < 3) {
+                    lives++;
+                    livesImg.src = `images/${lives}.png`
+                    createExInThisPos(divEl.getBoundingClientRect().left - divEl.parentElement.getBoundingClientRect().left)
+                    if (lives == 3)
+                        isGameOver = true;
                 }
-                divEl.remove();
-            }, 1000)
 
-        }, 1000)
+                divEl.nextElementSibling.remove();
+
+            }
+            divEl.remove();
+        }, 1800)
+
+
 
     }, 500);
 }
@@ -315,9 +330,50 @@ divMainContainer.addEventListener("mousemove", (event) => {
         //     ply = false;
         //     setTimeout(() => { ply = true }, 1000)
         // }
-        if (event.target.className == "fruitImg" || event.target.parentElement.classList.contains("bomb")) {
-            slice(event.target, xOfMouse, yOfMouse);
+        // if (event.target.className == "fruitImg" || event.target.parentElement.classList.contains("bomb")) {
+        //     slice(event.target, xOfMouse, yOfMouse);
 
+
+        // }
+        let elmm;
+        for (let i = 0; i < 25; i++) {
+
+            elmm = document.elementFromPoint(xOfMouse + i, yOfMouse)
+
+            if (elmm.className == "fruitImg") {
+
+                slice(elmm, xOfMouse, yOfMouse);
+
+            }
+            elmm = document.elementFromPoint(xOfMouse - i, yOfMouse)
+
+            if (elmm.className == "fruitImg") {
+
+                slice(elmm, xOfMouse, yOfMouse);
+
+            }
+        }
+        for (let i = 0; i < 25; i++) {
+
+            elmm = document.elementFromPoint(xOfMouse, yOfMouse + i)
+
+            if (elmm.className == "fruitImg") {
+
+                slice(elmm, xOfMouse, yOfMouse);
+
+            }
+            elmm = document.elementFromPoint(xOfMouse, yOfMouse - i)
+
+            if (elmm.className == "fruitImg") {
+
+                slice(elmm, xOfMouse, yOfMouse);
+
+            }
+        }
+        elmm = document.elementFromPoint(xOfMouse, yOfMouse)
+        if (elmm.className == "fruitImg" || elmm.parentElement.classList.contains("bomb")) {
+
+            slice(elmm, xOfMouse, yOfMouse);
 
         }
     }
@@ -393,14 +449,14 @@ setInterval(() => {
 
 
 function creatEle(ty) {
-    let x = Math.floor(Math.random() * 3)
-    for (let i = 0; i < x; i++) {
-        let conDiv = document.createElement("div");
-        let aud = document.createElement("AUDIO");
-        let mainImage = document.createElement("img");
-        conDiv.classList.add("movingel");
-        if (ty == "fruit" && lives < 3) {
 
+    if (ty == "fruit" && lives < 3) {
+        let x = Math.floor(Math.random() * 3)
+        for (let i = 0; i <= x; i++) {
+            let conDiv = document.createElement("div");
+            let aud = document.createElement("AUDIO");
+            let mainImage = document.createElement("img");
+            conDiv.classList.add("movingel");
             let righthf = document.createElement("img");
             let lfthf = document.createElement("img");
             let splat = document.createElement("img");
@@ -439,7 +495,14 @@ function creatEle(ty) {
             push(conDiv)
 
         }
-        else if (ty == "bomb" && lives < 3) {
+    }
+    else if (ty == "bomb" && lives < 3) {
+        let x = Math.floor(Math.random() * 3)
+        for (let i = 0; i <= x; i++) {
+            let conDiv = document.createElement("div");
+            let aud = document.createElement("AUDIO");
+            let mainImage = document.createElement("img");
+            conDiv.classList.add("movingel");
             conDiv.classList.add("bomb");
             aud.src = `media/Bomb-explode.wav`
             mainImage.src = `images/bomb.png`
@@ -452,9 +515,9 @@ function creatEle(ty) {
     }
 }
 
-setInterval(creatEle, 500, "fruit");
+setInterval(creatEle, 1000, "fruit");
 
-setInterval(creatEle, 2150, "bomb");
+setInterval(creatEle, 3000, "bomb");
 
 setInterval(() => {
     if (lives > 2 && isNewGame && isGameOver) {

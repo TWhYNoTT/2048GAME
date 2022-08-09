@@ -11,7 +11,7 @@
 
 .mainContainer {
     width: 760px;
-    height: 520px;
+    height: 600px;
     border: 1px solid black;
     margin: auto;
     position: relative;
@@ -27,8 +27,8 @@
 
 @media (max-width: 760px) {
     .mainContainer {
-        width: 320px;
-        height: 420px;
+        width: 100%;
+
     }
 }
 
