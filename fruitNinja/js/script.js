@@ -347,7 +347,7 @@ divMainContainer.addEventListener("mousemove", (event) => {
 
 function sliceElementsInThisRange(x, y) {
     let elmm;
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 5; i++) {
 
         elmm = document.elementFromPoint(x + i, y)
 
@@ -364,7 +364,7 @@ function sliceElementsInThisRange(x, y) {
 
         }
     }
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 5; i++) {
 
         elmm = document.elementFromPoint(x, y + i)
 
