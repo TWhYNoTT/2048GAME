@@ -4,6 +4,19 @@ let livesImg = document.querySelector(".livesImg");
 let gameoverContainer = document.querySelector(".gameover");
 let startOverAud = document.querySelector(".startOver");
 let newgamebtn = document.querySelector(".newgame-btn");
+
+var bombSnd = new Audio();
+var bombSrc = document.createElement("source");
+bombSrc.type = "audio/mpeg";
+bombSrc.src = "media/Bomb-explode.wav";
+bombSnd.appendChild(bombSrc);
+
+var sliceSnd = new Audio();
+var sliceSrc = document.createElement("source");
+sliceSrc.type = "audio/mpeg";
+sliceSrc.src = "media/silce7.m4a";
+sliceSnd.appendChild(sliceSrc);
+
 let isNewGame = true;
 let isGameOver = false;
 let score = 0;
@@ -157,7 +170,7 @@ let fallRight = [
 let arr = [[], []];
 let divsw = document.querySelector(".divsw");
 
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 9; i++) {
     let sw = document.createElement("div");
     sw.classList.add("sw");
 
@@ -176,8 +189,8 @@ function push(divEl) {
 
 
         if (divEl.classList.contains("slice")) {
-            divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.style.left = -((divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.getBoundingClientRect().width / 2) - (divEl.getBoundingClientRect().width / 2) + 10) + "px"
-            divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.style.top = (divEl.getBoundingClientRect().height / 2 - divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.getBoundingClientRect().height / 2) + "px"
+            divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.style.left = -(divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.getBoundingClientRect().width / 2 - divEl.getBoundingClientRect().width / 2) + "px"
+            divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.style.top = (divEl.getBoundingClientRect().height / 2 - divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.getBoundingClientRect().height / 2) + "px"
             //    / divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.style.transform = 'rotateZ(45deg)';
         }
 
@@ -258,19 +271,22 @@ function slice(el) {
         el.style.visibility = "hidden";
         el.nextElementSibling.style.visibility = "visible";
         el.nextElementSibling.nextElementSibling.style.visibility = "visible";
-        el.nextElementSibling.nextElementSibling.nextElementSibling.play();
         el.parentElement.nextElementSibling.style.visibility = "visible";
-
+        let clone = sliceSnd.cloneNode(true);
+        clone.play();
+        setTimeout(() => {
+            clone.remove();
+        }, 500)
         el.nextElementSibling.animate(fallLeft, fallTF);
         el.nextElementSibling.nextElementSibling.animate(fallRight, fallTF);
-        el.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.animate(sliceEf, sliceEfTF);
+        el.nextElementSibling.nextElementSibling.nextElementSibling.animate(sliceEf, sliceEfTF);
 
         score += 10;
         scoreSpan.innerHTML = score;
         //    el.parentElement.animate(pull0Down, pullDownTF)
     }
     else if (lives < 3 && el.parentElement.classList.contains("bomb")) {
-        el.nextElementSibling.play();
+        bombSnd.play();
         el.parentElement.animate(pullDown, pushUpTF);
         lives = 3;
         setTimeout(() => {
@@ -309,6 +325,8 @@ divMainContainer.addEventListener("mouseup", () => {
 // let sndSm = 0;
 // let ply = true;
 // let lastx;
+let xOfMouse;
+let yOfMouse;
 
 divMainContainer.addEventListener("mousemove", (event) => {
     xOfMouse = event.clientX;
@@ -460,7 +478,7 @@ function creatEle(ty) {
         let x = Math.floor(Math.random() * 3)
         for (let i = 0; i <= x; i++) {
             let conDiv = document.createElement("div");
-            let aud = document.createElement("AUDIO");
+
             let mainImage = document.createElement("img");
             conDiv.classList.add("movingel");
             let righthf = document.createElement("img");
@@ -469,7 +487,7 @@ function creatEle(ty) {
             let sliceeff = document.createElement("img");
             let num = Math.ceil(Math.random() * 5);
             mainImage.src = `images/Fruit${num}.png`
-            aud.src = `media/slice${num}.wav`
+
             righthf.src = `images/Right${num}.png`
             lfthf.src = `images/Left${num}.png`
             sliceeff.src = `images/sliceeff${num}.png`
@@ -486,7 +504,7 @@ function creatEle(ty) {
             conDiv.appendChild(mainImage);
             conDiv.appendChild(lfthf);
             conDiv.appendChild(righthf);
-            conDiv.appendChild(aud);
+
             conDiv.appendChild(sliceeff);
 
 
@@ -506,14 +524,14 @@ function creatEle(ty) {
         let x = Math.floor(Math.random() * 3)
         for (let i = 0; i <= x; i++) {
             let conDiv = document.createElement("div");
-            let aud = document.createElement("AUDIO");
+
             let mainImage = document.createElement("img");
             conDiv.classList.add("movingel");
             conDiv.classList.add("bomb");
-            aud.src = `media/Bomb-explode.wav`
+
             mainImage.src = `images/bomb.png`
             conDiv.appendChild(mainImage);
-            conDiv.appendChild(aud);
+
             conDiv.style.left = Math.ceil(Math.random() * (divMainContainer.getBoundingClientRect().width - 100)) + "px"
             divMainContainer.append(conDiv);
             push(conDiv)
