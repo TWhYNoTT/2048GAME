@@ -176,7 +176,7 @@ function push(divEl) {
 
 
         if (divEl.classList.contains("slice")) {
-            divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.style.left = -(divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.getBoundingClientRect().width / 2 - divEl.getBoundingClientRect().width / 2) + "px"
+            divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.style.left = -((divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.getBoundingClientRect().width / 2) - (divEl.getBoundingClientRect().width / 2) + 10) + "px"
             divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.style.top = (divEl.getBoundingClientRect().height / 2 - divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.getBoundingClientRect().height / 2) + "px"
             //    / divEl.firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.style.transform = 'rotateZ(45deg)';
         }
@@ -252,6 +252,7 @@ function slice(el) {
 
 
     if (lives < 3 && el.parentElement.classList.contains("slice")) {
+        el.parentElement.classList.add("sliced");
         el.parentElement.nextElementSibling.style.left = (el.parentElement.getBoundingClientRect().left - el.parentElement.parentElement.getBoundingClientRect().left) + "px";
         el.parentElement.nextElementSibling.style.top = (el.parentElement.getBoundingClientRect().top - el.parentElement.parentElement.getBoundingClientRect().top) + "px";
         el.style.visibility = "hidden";
@@ -259,7 +260,6 @@ function slice(el) {
         el.nextElementSibling.nextElementSibling.style.visibility = "visible";
         el.nextElementSibling.nextElementSibling.nextElementSibling.play();
         el.parentElement.nextElementSibling.style.visibility = "visible";
-        el.parentElement.classList.add("sliced");
 
         el.nextElementSibling.animate(fallLeft, fallTF);
         el.nextElementSibling.nextElementSibling.animate(fallRight, fallTF);
@@ -345,6 +345,27 @@ divMainContainer.addEventListener("mousemove", (event) => {
 
 
 
+
+divMainContainer.addEventListener("touchstart", () => {
+    isMouseDown = true
+});
+divMainContainer.addEventListener("touchend", () => {
+    isMouseDown = false;
+    sw.forEach((elem) => {
+        elem.style.visibility = "hidden";
+    })
+});
+divMainContainer.addEventListener("touchmove", e => {
+    e.preventDefault();
+
+
+    xOfMouse = e.changedTouches[0].clientX;
+    yOfMouse = e.changedTouches[0].clientY;
+
+    swipeEf()
+    sliceElementsInThisRange(xOfMouse, yOfMouse);
+});
+
 function sliceElementsInThisRange(x, y) {
     let elmm;
     for (let i = 0; i < 5; i++) {
@@ -390,25 +411,7 @@ function sliceElementsInThisRange(x, y) {
 }
 
 
-divMainContainer.addEventListener("touchstart", () => {
-    isMouseDown = true
-});
-divMainContainer.addEventListener("touchend", () => {
-    isMouseDown = false;
-    sw.forEach((elem) => {
-        elem.style.visibility = "hidden";
-    })
-});
-divMainContainer.addEventListener("touchmove", e => {
-    e.preventDefault();
 
-
-    xOfMouse = e.changedTouches[0].clientX;
-    yOfMouse = e.changedTouches[0].clientY;
-
-    swipeEf()
-    sliceElementsInThisRange(xOfMouse, yOfMouse);
-});
 
 function swipeEf() {
     sw.forEach((elem) => {
