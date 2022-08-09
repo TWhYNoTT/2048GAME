@@ -303,19 +303,20 @@ divMainContainer.addEventListener("mouseup", () => {
 }
 );
 
-let xOfMouse;
-let yOfMouse;
+
 // let aud0 = document.createElement("AUDIO");
 // divMainContainer.append(aud0)
 // let sndSm = 0;
 // let ply = true;
 // let lastx;
+
 divMainContainer.addEventListener("mousemove", (event) => {
     xOfMouse = event.clientX;
     yOfMouse = event.clientY;
 
     if (isMouseDown) {
-        swipeEf()
+        swipeEf();
+        sliceElementsInThisRange(xOfMouse, yOfMouse);
         // if (!sndSm && ply) {
         //     aud0.src = `media/Sword-swipe-1.wav`;
         //     aud0.play()
@@ -335,52 +336,60 @@ divMainContainer.addEventListener("mousemove", (event) => {
 
 
         // }
-        let elmm;
-        for (let i = 0; i < 25; i++) {
 
-            elmm = document.elementFromPoint(xOfMouse + i, yOfMouse)
-
-            if (elmm.className == "fruitImg") {
-
-                slice(elmm, xOfMouse, yOfMouse);
-
-            }
-            elmm = document.elementFromPoint(xOfMouse - i, yOfMouse)
-
-            if (elmm.className == "fruitImg") {
-
-                slice(elmm, xOfMouse, yOfMouse);
-
-            }
-        }
-        for (let i = 0; i < 25; i++) {
-
-            elmm = document.elementFromPoint(xOfMouse, yOfMouse + i)
-
-            if (elmm.className == "fruitImg") {
-
-                slice(elmm, xOfMouse, yOfMouse);
-
-            }
-            elmm = document.elementFromPoint(xOfMouse, yOfMouse - i)
-
-            if (elmm.className == "fruitImg") {
-
-                slice(elmm, xOfMouse, yOfMouse);
-
-            }
-        }
-        elmm = document.elementFromPoint(xOfMouse, yOfMouse)
-        if (elmm.className == "fruitImg" || elmm.parentElement.classList.contains("bomb")) {
-
-            slice(elmm, xOfMouse, yOfMouse);
-
-        }
     }
 
 
 }
 );
+
+
+
+function sliceElementsInThisRange(x, y) {
+    let elmm;
+    for (let i = 0; i < 25; i++) {
+
+        elmm = document.elementFromPoint(x + i, y)
+
+        if (elmm.className == "fruitImg") {
+
+            slice(elmm, x + i, y);
+
+        }
+        elmm = document.elementFromPoint(x - i, y)
+
+        if (elmm.className == "fruitImg") {
+
+            slice(elmm, x - i, y);
+
+        }
+    }
+    for (let i = 0; i < 25; i++) {
+
+        elmm = document.elementFromPoint(x, y + i)
+
+        if (elmm.className == "fruitImg") {
+
+            slice(elmm, x, y + i);
+
+        }
+        elmm = document.elementFromPoint(x, y - i)
+
+        if (elmm.className == "fruitImg") {
+
+            slice(elmm, x, y - i);
+
+        }
+    }
+    elmm = document.elementFromPoint(x, y)
+    if (elmm.className == "fruitImg" || elmm.parentElement.classList.contains("bomb")) {
+
+        slice(elmm, x, y);
+
+    }
+}
+
+
 divMainContainer.addEventListener("touchstart", () => {
     isMouseDown = true
 });
@@ -398,13 +407,7 @@ divMainContainer.addEventListener("touchmove", e => {
     yOfMouse = e.changedTouches[0].clientY;
 
     swipeEf()
-    let elmm = document.elementFromPoint(xOfMouse, yOfMouse)
-
-    if (elmm.className == "fruitImg" || elmm.parentElement.classList.contains("bomb")) {
-
-        slice(elmm, xOfMouse, yOfMouse);
-
-    }
+    sliceElementsInThisRange(xOfMouse, yOfMouse);
 });
 
 function swipeEf() {
