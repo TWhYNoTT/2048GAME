@@ -240,6 +240,7 @@ function createExInThisPos(x) {
 
     setTimeout(() => {
         ex.remove();
+        ex = null;
     }, 500)
 
 }
@@ -276,6 +277,7 @@ function slice(el) {
         clone.play();
         setTimeout(() => {
             clone.remove();
+            clone = null;
         }, 500)
         el.nextElementSibling.animate(fallLeft, fallTF);
         el.nextElementSibling.nextElementSibling.animate(fallRight, fallTF);
@@ -478,7 +480,6 @@ function creatEle(ty) {
         let x = Math.floor(Math.random() * 3)
         for (let i = 0; i <= x; i++) {
             let conDiv = document.createElement("div");
-
             let mainImage = document.createElement("img");
             conDiv.classList.add("movingel");
             let righthf = document.createElement("img");
@@ -487,7 +488,6 @@ function creatEle(ty) {
             let sliceeff = document.createElement("img");
             let num = Math.ceil(Math.random() * 5);
             mainImage.src = `images/Fruit${num}.png`
-
             righthf.src = `images/Right${num}.png`
             lfthf.src = `images/Left${num}.png`
             sliceeff.src = `images/sliceeff${num}.png`
@@ -499,24 +499,24 @@ function creatEle(ty) {
             lfthf.classList.add("half");
             lfthf.classList.add("rithf");
             sliceeff.classList.add("sliceeff");
-
             splat.classList.add("splat");
             conDiv.appendChild(mainImage);
             conDiv.appendChild(lfthf);
             conDiv.appendChild(righthf);
-
             conDiv.appendChild(sliceeff);
-
-
             righthf.style.right = "0px"
             lfthf.style.bottom = "0px"
-
-
-
             divMainContainer.append(conDiv);
             divMainContainer.append(splat);
+            push(conDiv);
 
-            push(conDiv)
+            sliceeff = null;
+            splat = null;
+            lfthf = null;
+            righthf = null;
+            mainImage = null;
+            conDiv = null;
+            num = null;
 
         }
     }
@@ -535,6 +535,9 @@ function creatEle(ty) {
             conDiv.style.left = Math.ceil(Math.random() * (divMainContainer.getBoundingClientRect().width - 100)) + "px"
             divMainContainer.append(conDiv);
             push(conDiv)
+
+            mainImage = null;
+            conDiv = null;
         }
     }
 }
