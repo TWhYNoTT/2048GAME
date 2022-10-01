@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loader</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 100px;
+
+        }
+
+        #spin {
+
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            animation: spinn 1s infinite;
+            position: absolute;
+        }
+
+        @keyframes spinn {
+            100% {
+                transform: rotateZ(360deg);
+            }
+        }
+
+
+
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .innerimg {
+            visibility: hidden;
+            z-index: -1;
+        }
+
+        .txtblo {
+            visibility: hidden;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="imgcont">
+            <img src="img/0.PNG" alt="Spinner" id="spin">
+            <img src="img/" alt="Spinner" class="innerimg">
+        </div>
+        <div class="txtblo"></div>
+    </div>
+
+    <script>
+        let txt = document.querySelector(".txtblo");
+        let img = document.querySelector(".innerimg");
+
+
+        setTimeout(() => {
+            txt.innerHTML = "Finding your vehicle information..."
+            img.setAttribute("src", "img/1.png")
+            txt.style.visibility = "visible"
+            img.style.visibility = "visible"
+            setTimeout(() => {
+                txt.style.visibility = "hidden"
+                img.style.visibility = "hidden"
+                txt.innerHTML = "Preparing your offer..."
+                img.setAttribute("src", "img/2.png")
+                setTimeout(() => {
+
+                    txt.style.visibility = "visible"
+                    img.style.visibility = "visible"
+                }, 1500)
+
+            }, 1500)
+        }, 200)
+
+    </script>
+
+</body>
+
+</html>
