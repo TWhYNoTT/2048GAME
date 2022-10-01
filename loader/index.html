@@ -61,7 +61,7 @@
     <div class="container">
         <div class="imgcont">
             <img src="img/0.PNG" alt="Spinner" id="spin">
-            <img src="img/" alt="Spinner" class="innerimg">
+            <img src="img/1.PNG" alt="Spinner" class="innerimg">
         </div>
         <div class="txtblo"></div>
     </div>
@@ -73,14 +73,14 @@
 
         setTimeout(() => {
             txt.innerHTML = "Finding your vehicle information..."
-            img.setAttribute("src", "img/1.png")
+            img.src = `img/1.PNG`
             txt.style.visibility = "visible"
             img.style.visibility = "visible"
             setTimeout(() => {
                 txt.style.visibility = "hidden"
                 img.style.visibility = "hidden"
                 txt.innerHTML = "Preparing your offer..."
-                img.setAttribute("src", "img/2.png")
+                img.src = `img/2.PNG`
                 setTimeout(() => {
 
                     txt.style.visibility = "visible"
