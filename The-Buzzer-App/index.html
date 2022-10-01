@@ -1,0 +1,404 @@
+<html class="no-touch">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>The Buzzer App!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="./The Buzzer App!_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./The Buzzer App!_files/custom.css">
+    <script src="./The Buzzer App!_files/jquery.min.js.download"></script>
+    <script language="javascript" type="text/javascript">
+        document.addEventListener("keypress", (e) => {
+
+            if (e.keyCode == 49) {
+                done = 1;
+                key_press(0)
+            }
+            else if (e.keyCode == 13) {
+                start_question()
+            }
+            else if (e.keyCode == 32) {
+
+                key_press(1)
+                buzzer_allowed = 0
+
+            }
+        })
+        LOCKOUT_TIME = 250;
+        ANNOUNCE_TIME = 2250;
+        QUIET_PERIOD = 500;
+
+        use_beep = 0;
+        use_questions = 1;
+        showing_results = 0;
+        NUM_PROMPT_AUDIO = 80;
+
+        BORDER_COLOR_DEFAULT = "lightblue";
+        BORDER_COLOR_READY = "white";
+
+        means = [1000, 400, 130, 0]
+        stddevs = [500, 200, 65, 0];
+        selected_time_option = 0;
+
+        function hideDiv(id) {
+            document.getElementById(id).style.visibility = 'hidden';
+        }
+        function showDiv(id) {
+            document.getElementById(id).style.visibility = 'visible';
+        }
+
+        function buzz_html(contestant, color, reaction_time) {
+            img = "";
+            if (contestant == 0) {
+                contestant_str = "zaxis.wii.1";
+            } else {
+                contestant_str = "Contestant " + (contestant + 1);
+            }
+            if (reaction_time >= 0) {
+                contestant_str = contestant_str + " (" + reaction_time + " ms)";
+            }
+            return "(" + reaction_time + " ms)";
+        }
+
+        function on_tags_keydown(event) {
+            if (event.keyCode == 13) {
+                tags.blur();
+            }
+        }
+
+        function gen_audio(snd_url, snd_type, on_ended) {
+            audio = '<audio autoplay="autoplay" onended="' + on_ended + '">';
+            audio += '<source src="' + snd_url + '" type="audio/' + snd_type + '">';
+            audio += '<!--[if lt IE 9]>';
+            audio += '<bgsound src="' + snd_url + '" loop="1">';
+            audio += '<![endif]-->';
+            audio += '</audio><br>';
+            return audio;
+        }
+
+        function changelight(cl) {
+            lightItem.setAttribute("class", "alert innerbulb bulb-" + cl);
+            outerLightItem.setAttribute("class", "alert bulbborder bulbborder-" + cl);
+        }
+
+        function announce(str) {
+            lightItem.innerHTML = str;
+        }
+
+        function onEndedAudioPrompt() {
+
+            turn_on_light();
+        }
+
+        function onAudioToneClick() {
+            use_beep = !use_beep;
+            refreshAudioToneSpan();
+            init();
+        }
+
+        function onDelayParamsClick(new_option) {
+            selected_time_option = new_option;
+            refreshDelayParams();
+            init();
+        }
+
+        function refreshAudioToneSpan() {
+            if (use_beep == 0) {
+                audio_tone_indicator.innerHTML = "<b><font color=\"#2F86D7\">No beep</font></b> / Beep";
+            } else {
+                audio_tone_indicator.innerHTML = "No beep / <b><font color=\"#2F86D7\">Beep</font></b>";
+            }
+        }
+
+        function refreshDelayParams() {
+            html = "";
+            for (i = 0; i < means.length; i++) {
+                if (i == selected_time_option) {
+                    html += "<b><font color=\"#2F86D7\">" + means[i] + "ms</font></b> ";
+                } else {
+                    html += "<span onclick=\"onDelayParamsClick(" + i + ")\">" + means[i] + "ms</span> ";
+                }
+                if (i < means.length - 1) {
+                    html += "/ ";
+                }
+            }
+            delay_params_toggle.innerHTML = html;
+        }
+
+        function announceAudio(audio_url, audio_type) {
+            ann.innerHTML = gen_audio(audio_url, audio_type, "onEndedAudioPrompt();");
+        }
+
+        function after_beep() {
+        }
+
+        function turn_on_light() {
+            if (use_beep) {
+                beep.innerHTML = gen_audio("audio/beep-8.wav", "wav", "after_beep();");
+            }
+            buzzer_allowed = 1;
+            allow_time = (new Date()).getTime();
+
+            lightItem.innerHTML = "<br>";
+            if (lockout_contestant[0] > 0) {
+                changelight("done-reading-lockout");
+                setTimeout(function () { reinstate_buzzer(0) }, LOCKOUT_TIME);
+                return;
+            } else {
+                changelight("done-reading-ready");
+            }
+        }
+
+        function self_key_press(event) {
+            if (editing_tags == 1) {
+                return;
+            }
+            key_press(0);
+        }
+
+        function prohibit_buzzer(id) {
+            if (!lockout_contestant[id]) {
+                lockout_contestant[id] = 0;
+            }
+            lockout_contestant[id] = 1;
+            if (buzzer_allowed) {
+                // shouldn't be reachable?
+                changelight("done-reading-lockout");
+            } else {
+                changelight("reading-lockout");
+            }
+        }
+
+        function reinstate_buzzer(id) {
+            lockout_contestant[id] = 0;
+            buzzer_allowed = 1;
+            changelight("done-reading-ready");
+        }
+
+        function log_result(reaction_time) {
+            tags_str = tags.value;
+            $.ajax({
+                url: "/log_buzzer_ajax?t=" + reaction_time + "&tags=" + tags_str,
+                context: document.body
+            }).done(function (data) {
+                var lines = data.split('\n');
+                results_recent.innerHTML = lines[0];
+                results_tags.innerHTML = lines[1];
+            })
+        }
+
+        function key_press(id) {
+            if (document.activeElement.nodeName == "INPUT") return;
+            this_time = (new Date()).getTime();
+
+            if (id == 0 && done == 1) {
+
+                init();
+                changelight("reading");
+
+                return;
+            }
+            if (lockout_contestant[id] == 1) {
+                return;
+            }
+            if (buzzer_allowed == 1) {
+                reaction_time = this_time - allow_time;
+                if (id == 0) {
+                    log_result(reaction_time);
+                }
+                else {
+                    announce(buzz_html(id, "lightgreen", reaction_time));
+                    changelight("awaiting-next");
+                    done = 1;
+                    last_click_time = this_time;
+                }
+
+            } else {
+                prohibit_buzzer(id);
+            }
+        }
+
+        function getRandomArbitary(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+        function rnd_snd() {
+            return (Math.random() * 2 - 1) + (Math.random() * 2 - 1) + (Math.random() * 2 - 1);
+        }
+        function rnd(mean, stdev) {
+            return Math.round(rnd_snd() * stdev + mean);
+        }
+        function generate_wait_time() {
+            mean = means[selected_time_option];
+            stddev = stddevs[selected_time_option];
+            return Math.max(0, rnd(mean, stddev));
+        }
+
+        function init() {
+            done = 1;
+            lockout_contestant = {};
+            //document.onkeydown = self_key_press;
+            audio_tone_indicator = document.getElementById("audiotone");
+            delay_params_toggle = document.getElementById("delayparams");
+            refreshAudioToneSpan();
+            refreshDelayParams();
+
+            c = {}
+            results_recent = document.getElementById("results_recent");
+            results_tags = document.getElementById("results_tags");
+
+            tags = document.getElementById("tags_input");
+            tags_outer = document.getElementById("tags");
+            ann = document.getElementById("announce");
+            beep = document.getElementById("beep");
+            beep.innerHTML = "";
+            logger = document.getElementById("logger");
+            logger.innerHTML = "";
+
+            tab1 = document.getElementById('tab1');
+            tab2 = document.getElementById('tab2');
+            editing_tags = 0;
+            buzzer_allowed = 0;
+
+            lightItem = document.getElementById('light');
+            outerLightItem = document.getElementById('outerlight');
+            announce("<br>");
+            if (!showing_results) {
+                log_result(-1); // Force leaderboard panel to show up
+                showing_results = 1;
+            }
+
+            last_click_time = 0;
+        }
+
+        function start_question() {
+            done = 0;
+
+            if (use_questions) {
+                // var prompt_num = Math.floor(Math.random() * NUM_PROMPT_AUDIO) + 1;
+                //announceAudio("audio/bp_" + prompt_num + ".wav", "wav");
+
+                onEndedAudioPrompt();
+
+
+            } else {
+                // Deprecated
+                setTimeout(function () { announce("Ready"); }, 750);
+                setTimeout(function () { announce("Ready, set"); }, 1500);
+                setTimeout(function () { announce("Ready, set, go..."); }, 2250);
+                wait_time = ANNOUNCE_TIME + generate_wait_time();
+                setTimeout(turn_on_light, wait_time);
+            }
+        }
+
+    </script>
+    <style>
+        body {
+            font-family: "Arial MT", Arial, sans-serif;
+            font-size: 1.20em;
+            overflow-x: hidden;
+            overflow-y: auto;
+            margin: 5px 3px 3px 20px;
+        }
+    </style>
+
+
+
+</head>
+
+
+<body onload="init()">
+
+    <div class="container" role="main" style="width: 910px">
+
+        <input id="unfocus" type="text" style="position: absolute; opacity: 0;">
+        <div class="hidden">
+
+        </div>
+
+        <img src="./The Buzzer App!_files/The_Buzzer_App_Design_2b-_v3_02.gif" width="881" height="102"
+            alt="The Buzzer App">
+        <div class="aboutlink text-shadow"><a href="http://thebuzzerapp.com/about">About This App</a></div>
+        <br><br>
+        <center>
+            <h3>
+                <div id="outerlight" class="alert bulbborder bulbborder-done-reading-ready"><br></div>
+                <div id="light" class="alert innerbulb bulb-done-reading-ready"><br></div>
+            </h3>
+        </center>
+
+        <div id="announce"><audio autoplay="autoplay" onended="onEndedAudioPrompt();" __idm_id__="2752516">
+                <source src="audio/bp_63.wav" type="audio/wav">
+                <!--[if lt IE 9]><bgsound src="audio/bp_63.wav" loop="1"><![endif]-->
+            </audio><br></div>
+        <div id="logger"></div>
+        <div id="beep"></div>
+
+        <div style="width:910px; margin:0; position: absolute; top: 270px">
+            <div class="row">
+
+                <div class="col-md-3" style="height:250px; width: 250px; margin: 3px;">
+                    <div class="panel panel-info">
+                        <div class="panel-heading text-shadow">
+                            <h3 class="panel-title">Settings</h3>
+                        </div>
+                        <div class="panel-body" style="overflow:scroll; height:200px;">
+                            <font color="#2F86D7">Enter tags</font> (comma-separated):<br><input id="tags_input"
+                                size="25" onkeydown="on_tags_keydown(event);">
+                            <br><br>
+                            <b>Time delay:</b><br><span id="delayparams"><b>
+                                    <font color="#2F86D7">1000ms</font>
+                                </b> / <span onclick="onDelayParamsClick(1)">400ms</span> / <span
+                                    onclick="onDelayParamsClick(2)">130ms</span> / <span
+                                    onclick="onDelayParamsClick(3)">0ms</span> </span>
+                            <br><br>
+                            <b>Audio:</b><br><span id="audiotone" onclick="onAudioToneClick();"><b>
+                                    <font color="#2F86D7">No beep</font>
+                                </b> / Beep</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3" style="height:250px; width: 400px; margin: 3px;">
+                    <div class="panel panel-info">
+                        <div class="panel-heading text-shadow">
+                            <h3 class="panel-title">Tags</h3>
+                        </div>
+                        <div class="panel-body" id="results_tags" style="overflow:scroll; height:200px;">
+                            <table cellspacing="10">
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3" style="height:250px; width: 250px; margin: 3px;">
+                    <div class="panel panel-info">
+                        <div class="panel-heading text-shadow">
+                            <h3 class="panel-title">Median times</h3>
+                        </div>
+                        <div class="panel-body" id="results_recent" style="overflow:scroll; height:200px;">
+                            <table cellspacing="0">
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <br><br>
+            <center>
+                <p>© 2022 Fritz Holznagel</p>
+            </center>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
