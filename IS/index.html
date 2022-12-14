@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        * {
+            outline: none;
+        }
+
+        body {
+            text-align: center;
+            background-color: rgb(252, 241, 241);
+        }
+
+        .UserImage {
+            width: 100px;
+            height: 100px;
+            border: 0.8px solid rgb(121, 121, 230);
+            border-radius: 50%;
+        }
+
+        .avatarImage {
+            width: 30px;
+            height: 30px;
+            border: 0.8px solid rgb(121, 121, 230);
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .profile {
+            border: 0.8px solid rgb(121, 121, 230);
+            width: 200px;
+            padding: 7px;
+            border-radius: 5px;
+            background-color: white;
+            margin-bottom: 7px;
+            height: 40vh;
+        }
+
+        .information {}
+
+        button {
+            background-color: #885cca;
+            padding: 10px;
+            cursor: pointer;
+            color: white;
+            margin-top: 7px;
+            margin-bottom: 7px;
+
+            border: 0.8px solid rgb(121, 121, 230);
+            border-radius: 4px;
+
+            outline: none;
+            padding: 9px;
+        }
+
+        .userContainer {
+
+            display: flex;
+            cursor: pointer;
+            justify-content: flex-start;
+            align-items: center;
+            opacity: .4;
+            margin-bottom: 7px;
+            overflow: hidden;
+        }
+
+        .usersContainer {
+            display: flex;
+            flex-wrap: wrap;
+            height: 40vh;
+            border: 0.8px solid rgb(121, 121, 230);
+            width: 220px;
+            padding: 7px;
+            border-radius: 5px;
+            background-color: white;
+            overflow-y: auto;
+            margin-bottom: 7px;
+
+        }
+
+        .ID {
+            visibility: hidden;
+        }
+
+        .name {
+            white-space: nowrap;
+            font-size: 16px;
+            font-weight: bold;
+            color: #3d3a3a;
+            font-family: Inter, sans-serif;
+
+        }
+
+        .mainContainer {
+            display: flex;
+
+
+        }
+
+        input {
+            width: 69%;
+            border: 0.8px solid rgb(121, 121, 230);
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            padding: 8px;
+
+        }
+
+        .chatbox {
+
+            height: 43vh;
+            border: 0.8px solid rgb(121, 121, 230);
+            width: 220px;
+            padding: 2px;
+            border-radius: 5px;
+            background-color: white;
+
+
+        }
+
+        .messagesContainer {
+            height: 85%;
+            border: 0.8px solid rgb(121, 121, 230);
+            padding: 2px;
+            border-radius: 5px;
+            background-color: white;
+            overflow-y: auto;
+
+
+        }
+
+        .messageContainer {
+            margin: 3px 0px;
+            text-align: left;
+
+
+        }
+
+        .messageContainerR {
+            margin: 3px 0px;
+            text-align: right;
+
+
+        }
+
+        .message {
+            background-color: #885cca;
+            border-radius: 15px;
+            color: white;
+            display: inline-block;
+            padding: 10px;
+            overflow-wrap: break-word;
+            max-width: 120px;
+
+        }
+
+        .messageR {
+            background-color: #e4e6eb;
+            border-radius: 15px;
+            display: inline-block;
+            padding: 10px;
+
+
+
+            overflow-wrap: break-word;
+            max-width: 120px;
+
+
+        }
+
+        .chatContainer {
+            display: flex;
+            flex-direction: column-reverse;
+            visibility: hidden;
+
+        }
+
+
+        .online {
+            opacity: .9;
+
+        }
+
+        *,
+        *::after,
+        *::before {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+
+        .navbar input[type="checkbox"],
+        .navbar .hamburger-lines {
+            display: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            margin: auto;
+
+        }
+
+        .navbar {
+            box-shadow: 0px 5px 10px 0px #aaa;
+            margin-bottom: 15px;
+            width: 100%;
+            background: #fff;
+            color: #000;
+            opacity: 0.85;
+            z-index: 100;
+            position: sticky;
+            top: 0;
+
+
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            height: 64px;
+            align-items: center;
+        }
+
+        .menu-items {
+            order: 2;
+            display: flex;
+        }
+
+        .logo {
+            order: 1;
+            font-size: 1.5rem;
+        }
+
+        .menu-items li {
+            list-style: none;
+            margin-left: 1.5rem;
+            font-weight: 545;
+        }
+
+        .navbar a {
+            color: #444;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .navbar a:hover {
+            color: #117964;
+        }
+
+
+        @media (max-width: 768px) {
+            .navbar {
+                opacity: 0.95;
+            }
+
+            .navbar-container input[type="checkbox"],
+            .navbar-container .hamburger-lines {
+                display: block;
+            }
+
+            .navbar-container {
+                display: block;
+                position: relative;
+                height: 64px;
+            }
+
+            .navbar-container input[type="checkbox"] {
+                position: absolute;
+                display: block;
+                height: 32px;
+                width: 30px;
+                top: 20px;
+                right: 20px;
+                z-index: 5;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            .navbar-container .hamburger-lines {
+                display: block;
+                height: 28px;
+                width: 35px;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                z-index: 2;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .navbar-container .hamburger-lines .line {
+                display: block;
+                height: 4px;
+                width: 100%;
+                border-radius: 10px;
+                background: #333;
+            }
+
+            .navbar-container .hamburger-lines .line1 {
+                transform-origin: 0% 0%;
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .navbar-container .hamburger-lines .line2 {
+                transition: transform 0.2s ease-in-out;
+            }
+
+            .navbar-container .hamburger-lines .line3 {
+                transform-origin: 0% 100%;
+                transition: transform 0.3s ease-in-out;
+            }
+
+            .navbar .menu-items {
+                position: absolute;
+                padding-top: 100px;
+                background: #fff;
+                height: 100vh;
+                max-width: 300px;
+                right: -100%;
+                display: flex;
+                flex-direction: column;
+                margin-right: -40px;
+                padding-right: 40px;
+                transition: right 0.5s ease-in-out;
+                box-shadow: 5px 0px 10px 0px #aaa;
+                overflow: hidden;
+            }
+
+            .navbar .menu-items li {
+                margin-bottom: 1.8rem;
+                font-size: 1.1rem;
+                font-weight: 500;
+            }
+
+            .logo {
+                position: absolute;
+                top: 10px;
+                left: 15px;
+                font-size: 2.5rem;
+            }
+
+            .navbar-container input[type="checkbox"]:checked~.menu-items {
+                right: 0px;
+            }
+
+            .navbar-container input[type="checkbox"]:checked~.hamburger-lines .line1 {
+                transform: rotate(45deg);
+            }
+
+            .navbar-container input[type="checkbox"]:checked~.hamburger-lines .line2 {
+                transform: scaleY(0);
+            }
+
+            .navbar-container input[type="checkbox"]:checked~.hamburger-lines .line3 {
+                transform: rotate(-45deg);
+            }
+
+        }
+
+        @media (max-width: 500px) {
+            .navbar-container input[type="checkbox"]:checked~.logo {
+                display: none;
+            }
+        }
+
+        #logout {
+            cursor: pointer;
+            color: red;
+        }
+
+        .overf {
+            overflow: hidden;
+        }
+
+        .move {
+
+            left: 0px;
+
+
+        }
+
+        #sohowandhide {
+            cursor: pointer;
+        }
+
+        aside {
+            left: -70%;
+
+            transition: left 0.5s ease-in-out;
+            position: fixed;
+            background-color: rgb(243, 235, 235);
+
+
+        }
+
+        #postBody {
+            min-width: 100%;
+            min-height: 80px;
+            max-height: 80px;
+            max-width: 100%;
+            padding: 10px;
+            border: 0.8px solid rgb(121, 121, 230);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 17px;
+
+
+        }
+
+        .createpost {
+            width: 60%;
+            margin-bottom: 15px;
+            border: 0.8px solid rgb(121, 121, 230);
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        #creatPost {
+            display: flex;
+            flex-direction: column;
+
+
+
+
+        }
+
+        section {
+
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+
+        }
+
+        .someinforation {
+            display: flex;
+            margin-bottom: 20px;
+
+        }
+
+        .textinfo {
+            display: flex;
+            flex-direction: column;
+            margin-right: 5px;
+
+        }
+
+        .postowner {
+            font-weight: bold;
+        }
+
+        .posttime {
+            font-size: 10px;
+        }
+
+        .postcontainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            width: 60%;
+            margin-bottom: 15px;
+            border: 0.8px solid rgb(121, 121, 230);
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        .postbody {
+            overflow-wrap: break-word;
+            margin-right: 30px;
+            width: 90%;
+            text-align: right;
+        }
+
+        @media (max-width: 500px) {
+            .postcontainer {
+                width: 90%;
+            }
+
+            .createpost {
+                width: 90%;
+            }
+
+
+
+        }
+
+        .usersContainer {
+            height: 50%;
+        }
+
+        .chatContainer {
+            height: 40%;
+        }
+
+        .commentreactcontanier {
+            margin-top: 15px;
+            width: 100%;
+            display: flex;
+
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .postbtn {
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .dislike,
+        .comment,
+        .like {
+
+
+            border-radius: 5px;
+            color: white;
+            width: 33%;
+            cursor: pointer;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            transition: background-color 0.4s, font-weight 0.7s;
+
+
+        }
+
+        .commenttextinfo {
+            display: flex;
+            flex-direction: column;
+            margin-right: 5px;
+        }
+
+        .commentsomeinforation {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+
+
+
+
+        .commentowner {
+            font-weight: bold;
+        }
+
+        .commenttime {
+            font-size: 10px;
+        }
+
+        .commentcontainer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            width: 100%;
+            margin-bottom: 15px;
+            border: 0.8px solid rgb(121, 121, 230);
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        .comments {
+            margin-top: 10px;
+            margin-right: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            width: 100%;
+        }
+
+        .commentbody {
+            margin-right: 20px;
+
+        }
+
+        @media (max-width: 768px) {
+            .postcontainer {
+                width: 90%;
+            }
+
+            .createpost {
+                width: 90%;
+            }
+
+        }
+
+        .commentBodyT {
+            min-width: 100%;
+            min-height: 80px;
+            max-height: 80px;
+            resize: none;
+            padding: 10px;
+            border: 0.8px solid rgb(121, 121, 230);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 17px;
+
+        }
+
+        .commentform {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            width: 100%;
+            margin-bottom: 15px;
+            border: 0.8px solid rgb(121, 121, 230);
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+
+
+        .likeCount,
+        .dislikeCount,
+        .commentsCount {
+            display: flex;
+            margin-bottom: 5px;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .likenum {
+            margin-top: 4px;
+        }
+
+        .commentnum {
+            margin-top: 2px;
+        }
+
+        .newMessageNoti {
+            position: fixed;
+            bottom: 0px;
+            right: -100%;
+            display: flex;
+            flex-direction: column;
+            border: 0.8px solid rgb(121, 121, 230);
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 15px;
+            gap: 7px;
+
+
+
+        }
+
+        .moveNewMessageNoti {
+            right: 0px;
+
+        }
+
+        .messageBodyNoti {
+            font-weight: bold;
+            font-size: 20px;
+            background-color: #d4d8e0;
+            border-radius: 15px;
+
+            padding: 10px;
+
+
+
+            overflow-wrap: break-word;
+            max-width: 120px;
+        }
+
+        .reactsContainer {
+            background-color: #885cca;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            border-radius: 7px;
+            margin-top: 10px;
+
+
+        }
+
+        .active {
+            background-color: #5a3394;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <script src="/js/socket.io/client-dist/socket.io.js"></script>
+    <script>
+
+
+        function move() {
+            document.querySelector("aside").classList.toggle("move")
+            sohowandhide.innerText = (sohowandhide.innerText == "اخفاء المستخدمين") ? "اظهار المستخدمين" : "اخفاء المستخدمين";
+            otherSideID0 = "";
+        }
+
+
+
+
+        const host = "127.0.0.1:5001/social-ba173/us-central1/app"
+        var tkn = localStorage.getItem("token");
+        let socket;
+        let loggedIn = false;
+        let users;
+        let myID;
+        if (tkn) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://" + host + "/api/getuserdata");
+            xhr.setRequestHeader('Content-type', 'application/json')
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        document.body.innerHTML += `<div class="overf">
+        <nav class="navbar">
+            <div class="navbar-container container">
+                <input type="checkbox" name="" id="">
+                <div class="hamburger-lines">
+                    <span class="line line1"></span>
+                    <span class="line line2"></span>
+                    <span class="line line3"></span>
+                </div>
+                <ul class="menu-items">
+                    <li id="fullname"></li>
+                    <li id="email"></li>
+                    <li id="sohowandhide" onclick="move()">اظهار المستخدمين</li>
+                    <li onclick="logOut()" id="logout">تسجيل خروج</li>
+                </ul>
+                <h1 class="logo">العلوم المتكاملة</h1>
+            </div>
+        </nav>
+
+        <div class=" mainContainer">
+            <aside>
+
+                <div class="usersContainer">
+
+                </div>
+
+
+                <div class="chatContainer">
+                    <form class="chatbox">
+                        <div class="messagesContainer">
+
+
+
+
+                        </div>
+                        <input type="text" class="messageText">
+                        <button onclick="sendMessage(event)">ارسال</button>
+                    </form>
+
+                </div>
+            </aside>
+            <section>
+
+                <div class="createpost">
+                    <form action="" id="creatPost">
+                        <textarea name="" id="postBody"></textarea>
+                        <button onclick="createPost(event)" class="postbtn">نشر</button>
+                    </form>
+                </div>
+
+
+            </section>
+        </div>
+    </div>
+    </div>
+    
+`
+
+                        let resObj = JSON.parse(xhr.response);
+                        users = resObj.users;
+                        myID = resObj.userid;
+
+
+
+
+                        fullname.innerText = `${resObj.fn} ${resObj.ln}`
+
+
+
+
+                        email.innerText = `${resObj.email}`
+
+
+                        socket = io("" + host + ":3000");
+                        socket.on("connect", () => {
+                            socket.emit("goonline", resObj.userid)
+                        });
+                        displayAllUsers(users);
+
+
+                        socket.on("newmessage", data => {
+
+                            if (otherSideID0 == data.messageFrom)
+                                formatMessage(data);
+                            else {
+                                let elem = document.createElement("div")
+                                elem.classList.add("newmsgcont");
+                                elem.innerHTML =
+                                    `<div class="newMessageNoti">
+                                        رسالة جديدة من
+                                    <div class="messageFromNoti">
+                                        ${document.getElementById(data.messageFrom).parentElement.querySelector(".name").textContent}
+                                    </div>
+                                    <div class="messageBodyNoti">
+                                        ${data.messageBody}
+                                    </div>
+                                </div>`
+                                document.body.querySelector(".overf").appendChild(elem);
+                                elem.firstElementChild.classList.add("moveNewMessageNoti")
+                                setTimeout(() => { elem.remove() }, 3000)
+
+                            }
+                        })
+                        socket.on("getusersonline", data => {
+                            for (element of document.getElementsByClassName("userContainer")) {
+
+                                element.classList.remove("online")
+                            }
+
+                            data.forEach(element => {
+                                if (element != myID)
+                                    document.getElementById(element).parentElement.classList.add("online");
+                            })
+                        })
+                        loggedIn = true;
+                        getPosts()
+                    }
+                }
+            }
+            xhr.send(JSON.stringify({
+                token: tkn
+            }));
+
+        }
+        else logOut();
+
+        function logOut() {
+            localStorage.removeItem("token");
+            window.location.replace("/login");
+        }
+
+        function getPosts() {
+
+
+
+            let xhrPost = new XMLHttpRequest();
+            xhrPost.open("POST", "http://" + host + "/api/post/get");
+            xhrPost.setRequestHeader('Content-type', 'application/json')
+
+            xhrPost.send(JSON.stringify({
+                token: tkn,
+            }));
+
+
+            xhrPost.onreadystatechange = () => {
+                if (xhrPost.readyState == 4) {
+                    if (xhrPost.status == 200) {
+                        let resObj = JSON.parse(xhrPost.response);
+
+                        resObj.forEach(element => {
+
+                            addPostToDOM(element)
+
+
+
+
+                        });
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        function addPostToDOM(element) {
+            let likeBody = `اعجبني`;
+            let dislikeBody = `لم يعجبني`;
+            let disAc;
+            let likAc;
+            element.likes.find(like => {
+
+                if (like.id == myID) {
+                    likeBody = `اعجبك`;
+                    likAc = "active";
+                }
+            })
+
+            element.dislikes.find(dislike => {
+
+                if (dislike.id == myID) {
+                    dislikeBody = `لم يعجبك`;
+                    disAc = "active";
+                }
+            })
+
+
+
+            let sectionE = document.querySelector('section');
+            sectionE.innerHTML += `<div class="postcontainer">
+                    <div class="someinforation">
+                        <div class="textinfo">
+                            <span class="postowner">${element.fullname}</span>
+                            <span class="posttime">${element.email}</span>
+                            <span class="posttime">${element.date}</span>
+                            </div>
+                            <img src="img/user.png" alt="user image" class="avatarImage">
+                            </div>
+                            <div class="postbody">
+                                ${element.body}
+                                </div>
+                               <div class="reactsContainer">
+                                <div class="dislike ${disAc}" onclick="addReact(this.parentElement.parentElement.querySelector('.postIDC').textContent,'dislike',true,this)">${dislikeBody}</div>
+                                <div class="comment" onclick="getComments(this.parentElement.parentElement.querySelector('.postIDC'))">تعليقات</div>
+                                <div class="like ${likAc}" onclick="addReact(this.parentElement.parentElement.querySelector('.postIDC').textContent,'like',true,this)">${likeBody}</div>
+                                </div>
+                                <div class="commentreactcontanier">
+                      
+                                    <div class="dislikeCount">
+                                        
+                                        <span>👎</span><span class="dislikenum"> ${element.dislikes.length} </span>
+                                    </div>
+                                    <div class="commentsCount">
+                                        
+                                        <span class="commentnum">  ${element.comments.length}</span>  <span>💬</span>
+                                    </div>
+                                        
+                                    <div class="likeCount">
+                                        <span class="likenum">${element.likes.length}</span><span>👍</span>
+                                    </div>
+                                    
+                    </div>
+                    <span class="postIDC" id="${element._id}" style="display: none;">${element._id}</span>
+                    <div class="comments">
+
+
+                    </div>
+                </div>`;
+
+        }
+
+
+        function getComments(postIDC) {
+
+            postIDC.parentElement.querySelector(".comments").innerHTML = `
+                    <div class="commentform">
+                        <textarea name="" class="commentBodyT"></textarea>
+                        <button  class="postbtn"  onclick="createOneComment(this.parentElement.parentElement.parentElement.querySelector('.postIDC').textContent,this.parentElement.parentElement.querySelector('.commentBodyT'))">اضافة تعليق</button>
+                        </div>`;
+
+
+            let xhrGetComments = new XMLHttpRequest();
+            xhrGetComments.open("POST", "http://" + host + "/api/post/getcomments");
+            xhrGetComments.setRequestHeader('Content-type', 'application/json')
+
+
+            xhrGetComments.send(JSON.stringify({
+                token: tkn,
+                postId: postIDC.textContent
+            }));
+
+
+            xhrGetComments.onreadystatechange = () => {
+                if (xhrGetComments.readyState == 4) {
+                    if (xhrGetComments.status == 200) {
+                        let resObj = JSON.parse(xhrGetComments.response);
+                        postIDC.parentElement.querySelector(".commentnum").textContent = resObj.comments.length
+
+                        resObj.comments.reverse().forEach(element => {
+
+                            addCommentToDOM(element, postIDC)
+
+
+
+
+                        });
+
+                    }
+
+                }
+
+            }
+
+        }
+
+
+
+
+        function addCommentToDOM(element, postIDC) {
+
+            let commentsSec = postIDC.nextElementSibling;
+            commentsSec.innerHTML += `                        
+            <div class="commentcontainer">
+                            <div class="commentsomeinforation">
+                                <div class="commenttextinfo">
+                                    <span class="commentowner">${element.fullname}</span>
+                                    <span class="commenttime">${element.email}</span>
+                                    <span class="commenttime">${element.date}</span>
+                                </div>
+                                <img src="img/user.png" alt="user image" class="avatarImage">
+                            </div>
+                            <div class="commentbody">
+                                ${element.body}
+                            </div>
+
+
+                        </div>`;
+
+        }
+
+
+        function createPost(e) {
+            e.preventDefault();
+            if (loggedIn) {
+                let body = postBody.value;
+
+                let xhrCreatePost = new XMLHttpRequest();
+                xhrCreatePost.open("POST", "http://" + host + "/api/post");
+                xhrCreatePost.setRequestHeader('Content-type', 'application/json')
+
+                xhrCreatePost.send(JSON.stringify({
+                    token: tkn,
+                    postBody: body,
+
+                }));
+
+                xhrCreatePost.onreadystatechange = () => {
+                    if (xhrCreatePost.readyState == 4) {
+                        if (xhrCreatePost.status == 200) {
+                            postBody.value = "Post successfully..";
+                            setTimeout(() => {
+                                postBody.value = "";
+
+                            }, 2000)
+
+
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+        function createOneComment(id, body) {
+
+
+
+
+
+            let xhrCreatePost = new XMLHttpRequest();
+            xhrCreatePost.open("POST", "http://" + host + "/api/post/comment");
+            xhrCreatePost.setRequestHeader('Content-type', 'application/json')
+
+            xhrCreatePost.send(JSON.stringify({
+                token: tkn,
+                postID: id,
+                commentBody: body.value,
+
+            }));
+
+            xhrCreatePost.onreadystatechange = () => {
+                if (xhrCreatePost.readyState == 4) {
+
+                    if (xhrCreatePost.status == 200) {
+
+                        body.value = "";
+
+                        getComments(body.parentElement.parentElement.parentElement.querySelector(".postIDC"));
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        function addReact(id, react, add, reEl) {
+            if (reEl.textContent == "اعجبك" || reEl.textContent == "لم يعجبك") {
+                add = false;
+
+            }
+
+
+
+
+
+            let xhrCreatePost = new XMLHttpRequest();
+            xhrCreatePost.open("POST", "http://" + host + "/api/post/react");
+            xhrCreatePost.setRequestHeader('Content-type', 'application/json')
+
+            xhrCreatePost.send(JSON.stringify({
+                token: tkn,
+                postID: id,
+                react: react,
+                add: add
+
+            }));
+
+            xhrCreatePost.onreadystatechange = () => {
+                if (xhrCreatePost.readyState == 4) {
+
+                    if (xhrCreatePost.status == 200) {
+                        let resObj = JSON.parse(xhrCreatePost.response);
+                        reEl.parentElement.parentElement.querySelector('.likenum').textContent = resObj.likes.length
+                        reEl.parentElement.parentElement.querySelector('.dislikenum').textContent = resObj.dislikes.length
+
+                        if (react == "like" && add) {
+                            reEl.textContent = "اعجبك"
+                            reEl.classList.add("active");
+                            reEl.parentElement.parentElement.querySelector('.dislike').textContent = "لم يعجبني"
+                            reEl.parentElement.parentElement.querySelector('.dislike').classList.remove("active");
+                        }
+
+                        else if (react == "dislike" && add) {
+                            reEl.textContent = "لم يعجبك"
+                            reEl.classList.add("active");
+                            reEl.parentElement.parentElement.querySelector('.like').textContent = "اعجبني"
+                            reEl.parentElement.parentElement.querySelector('.like').classList.remove("active");
+
+                        }
+                        else if (!add) {
+                            reEl.parentElement.parentElement.querySelector('.like').textContent = "اعجبني"
+                            reEl.parentElement.parentElement.querySelector('.like').classList.remove("active");
+                            reEl.parentElement.parentElement.querySelector('.dislike').textContent = "لم يعجبني"
+                            reEl.parentElement.parentElement.querySelector('.dislike').classList.remove("active");
+                        }
+
+
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        function sendMessage(e) {
+            e.preventDefault();
+            if (otherSideID0) {
+                let body = document.querySelector('.messageText').value;
+
+                let xhrMessage = new XMLHttpRequest();
+                xhrMessage.open("POST", "http://" + host + "/api/message");
+                xhrMessage.setRequestHeader('Content-type', 'application/json')
+
+                xhrMessage.send(JSON.stringify({
+                    token: tkn,
+                    otherSideID: otherSideID0,
+                    messageBody: body
+                }));
+
+                xhrMessage.onreadystatechange = () => {
+                    if (xhrMessage.readyState == 4) {
+                        if (xhrMessage.status == 200) {
+
+                            if (loggedIn) {
+                                socket.emit("sendmessage", {
+                                    from: myID,
+                                    to: otherSideID0,
+                                    body: body
+                                })
+                                formatMessage({ sideID: myID, messageBody: body })
+                                document.querySelector('.messageText').value = "";
+                            }
+
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+
+        function displayAllUsers(users) {
+            let usersDiv = document.querySelector('.usersContainer');
+            let htmlContent;
+
+            users.forEach(element => {
+                if (element._id != myID) {
+                    htmlContent = `
+                        <div class="userContainer" onclick="getMessages(this.querySelector('.ID').textContent)">
+                        <img src="img/user.png" alt="user image" class="avatarImage">
+                        <p class="name">${element.fn} ${element.ln}</p>
+                        <p class="ID" id="${element._id}" hidden>${element._id}</p>
+                        </div>
+                        `
+                    usersDiv.innerHTML += htmlContent;
+                }
+            });
+        }
+
+
+        var otherSideID0;
+
+        function getMessages(otherSideID) {
+            document.querySelector('.chatContainer').style.visibility = "visible";
+            document.querySelector('.messageText').value = "";
+            otherSideID0 = otherSideID;
+            document.querySelector('.messagesContainer').innerHTML = "";
+
+            let xhrMessage = new XMLHttpRequest();
+            xhrMessage.open("POST", "http://" + host + "/api/message/get");
+            xhrMessage.setRequestHeader('Content-type', 'application/json')
+
+            xhrMessage.send(JSON.stringify({
+                token: tkn,
+                otherSideID: otherSideID
+            }));
+
+            xhrMessage.onreadystatechange = () => {
+                if (xhrMessage.readyState == 4) {
+                    let resObj0 = JSON.parse(xhrMessage.response);
+                    if (xhrMessage.status == 200) {
+                        let resObj = JSON.parse(xhrMessage.response);
+                        resObj.forEach(element => {
+                            formatMessage(element)
+
+                        }
+                        )
+                    }
+
+                }
+            }
+
+        }
+        function formatMessage(element) {
+            let messagesDiv = document.querySelector('.messagesContainer');
+
+            if (element.sideID == myID) {
+                messagesDiv.innerHTML += `<div class="messageContainer">
+                        <div class="message">
+                        ${element.messageBody}
+                        </div>
+                        </div>`
+            }
+            else {
+                messagesDiv.innerHTML += `<div class="messageContainerR">
+                        <div class="messageR">
+                        ${element.messageBody}
+                        </div>
+                        </div>`
+            }
+            messagesDiv.scrollTo(0, messagesDiv.scrollHeight)
+        }
+    </script>
+</body>
+
+</html>
