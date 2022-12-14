@@ -8,7 +8,7 @@ if (tkn) {
     xhr0.onreadystatechange = () => {
         if (xhr0.readyState == 4) {
             if (xhr0.status == 200) {
-                window.location.replace("/");
+                window.location.replace("IS/");
             }
         }
     }
@@ -38,7 +38,7 @@ xhr.onreadystatechange = () => {
     if (xhr.readyState == 4) {
         if (xhr.status == 200) {
             localStorage.setItem("token", event.target.response);
-            window.location.replace("/");
+            window.location.replace("IS/");
         }
     }
 }
