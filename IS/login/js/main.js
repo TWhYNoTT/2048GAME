@@ -8,7 +8,7 @@ if (tkn) {
     xhr0.onreadystatechange = () => {
         if (xhr0.readyState == 4) {
             if (xhr0.status == 200) {
-                window.location.replace("IS/");
+                window.location.replace("/IS");
             }
         }
     }
@@ -25,7 +25,7 @@ else {
 
     <input type="submit" value="Login">
 
-    <a href="/register">Create New Account</a>
+    <a href="/IS/register">Create New Account</a>
 </form>`
     document.body.innerHTML = htmlContent;
 }
@@ -38,7 +38,7 @@ xhr.onreadystatechange = () => {
     if (xhr.readyState == 4) {
         if (xhr.status == 200) {
             localStorage.setItem("token", event.target.response);
-            window.location.replace("IS/");
+            window.location.replace("/IS");
         }
     }
 }
