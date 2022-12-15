@@ -2,7 +2,7 @@ var tkn = localStorage.getItem("token");
 const host = "isserver.onrender.com"
 if (tkn) {
     let xhr0 = new XMLHttpRequest();
-    xhr0.open("POST", "http://" + host + "/api/getuserdata");
+    xhr0.open("POST", "https://" + host + "/api/getuserdata");
     xhr0.setRequestHeader('Content-type', 'application/json')
 
     xhr0.onreadystatechange = () => {
@@ -47,7 +47,7 @@ xhr.onreadystatechange = () => {
 
 function handlesubmit(e) {
     e.preventDefault();
-    xhr.open("POST", "http://" + host + "/api/login");
+    xhr.open("POST", "https://" + host + "/api/login");
     xhr.setRequestHeader('Content-type', 'application/json');
     var email0 = document.getElementById("email").value;
     var password0 = document.getElementById("pass").value;
