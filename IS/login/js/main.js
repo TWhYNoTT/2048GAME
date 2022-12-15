@@ -1,5 +1,5 @@
 var tkn = localStorage.getItem("token");
-const host = "127.0.0.1:5001/social-ba173/us-central1/app"
+const host = "isserver.onrender.com"
 if (tkn) {
     let xhr0 = new XMLHttpRequest();
     xhr0.open("POST", "http://" + host + "/api/getuserdata");
