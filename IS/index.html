@@ -796,7 +796,7 @@
                         email.innerText = `${resObj.email}`
 
 
-                        socket = io("" + host + ":3000");
+                        socket = io("https://" + host + ":3000");
                         socket.on("connect", () => {
                             socket.emit("goonline", resObj.userid)
                         });
