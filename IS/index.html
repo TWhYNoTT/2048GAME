@@ -717,7 +717,7 @@
         let myID;
         if (tkn) {
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", "http://" + host + "/api/getuserdata");
+            xhr.open("POST", "https://" + host + "/api/getuserdata");
             xhr.setRequestHeader('Content-type', 'application/json')
 
             xhr.onreadystatechange = () => {
@@ -859,7 +859,7 @@
 
 
             let xhrPost = new XMLHttpRequest();
-            xhrPost.open("POST", "http://" + host + "/api/post/get");
+            xhrPost.open("POST", "https://" + host + "/api/post/get");
             xhrPost.setRequestHeader('Content-type', 'application/json')
 
             xhrPost.send(JSON.stringify({
@@ -966,7 +966,7 @@
 
 
             let xhrGetComments = new XMLHttpRequest();
-            xhrGetComments.open("POST", "http://" + host + "/api/post/getcomments");
+            xhrGetComments.open("POST", "https://" + host + "/api/post/getcomments");
             xhrGetComments.setRequestHeader('Content-type', 'application/json')
 
 
@@ -1031,7 +1031,7 @@
                 let body = postBody.value;
 
                 let xhrCreatePost = new XMLHttpRequest();
-                xhrCreatePost.open("POST", "http://" + host + "/api/post");
+                xhrCreatePost.open("POST", "https://" + host + "/api/post");
                 xhrCreatePost.setRequestHeader('Content-type', 'application/json')
 
                 xhrCreatePost.send(JSON.stringify({
@@ -1065,7 +1065,7 @@
 
 
             let xhrCreatePost = new XMLHttpRequest();
-            xhrCreatePost.open("POST", "http://" + host + "/api/post/comment");
+            xhrCreatePost.open("POST", "https://" + host + "/api/post/comment");
             xhrCreatePost.setRequestHeader('Content-type', 'application/json')
 
             xhrCreatePost.send(JSON.stringify({
@@ -1103,7 +1103,7 @@
 
 
             let xhrCreatePost = new XMLHttpRequest();
-            xhrCreatePost.open("POST", "http://" + host + "/api/post/react");
+            xhrCreatePost.open("POST", "https://" + host + "/api/post/react");
             xhrCreatePost.setRequestHeader('Content-type', 'application/json')
 
             xhrCreatePost.send(JSON.stringify({
@@ -1159,7 +1159,7 @@
                 let body = document.querySelector('.messageText').value;
 
                 let xhrMessage = new XMLHttpRequest();
-                xhrMessage.open("POST", "http://" + host + "/api/message");
+                xhrMessage.open("POST", "https://" + host + "/api/message");
                 xhrMessage.setRequestHeader('Content-type', 'application/json')
 
                 xhrMessage.send(JSON.stringify({
@@ -1219,7 +1219,7 @@
             document.querySelector('.messagesContainer').innerHTML = "";
 
             let xhrMessage = new XMLHttpRequest();
-            xhrMessage.open("POST", "http://" + host + "/api/message/get");
+            xhrMessage.open("POST", "https://" + host + "/api/message/get");
             xhrMessage.setRequestHeader('Content-type', 'application/json')
 
             xhrMessage.send(JSON.stringify({
