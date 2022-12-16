@@ -866,10 +866,11 @@
                         loggedIn = true;
                         getPosts()
                     }
+                                else
+                        logOut();
                 }
             }
-            else
-                        logOut();
+
             
             xhr.send(JSON.stringify({
                 token: tkn
