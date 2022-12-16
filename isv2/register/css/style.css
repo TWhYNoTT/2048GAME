@@ -1,0 +1,55 @@
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #eee;
+}
+
+form {
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 30px auto;
+    padding: 20px;
+    border: 1px solid gray;
+    font-weight: bold;
+    border-radius: 7px;
+    background-color: white;
+
+}
+
+input {
+    width: 100%;
+    border: 0.8px solid rgb(121, 121, 230);
+    border-radius: 4px;
+    font-size: 25px;
+    outline: none;
+    padding: 9px;
+}
+
+[type="checkbox"] {
+    width: initial;
+}
+
+h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+}
+
+
+[type="submit"] {
+    background-color: #885cca;
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+[type="submit"]:hover {
+    background-color: #7952b3;
+
+}
+
+[type="submit"]:active {
+    background-color: #885cca;
+}
