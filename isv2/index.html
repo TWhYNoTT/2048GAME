@@ -868,6 +868,9 @@
                     }
                 }
             }
+            else
+                        logOut();
+            
             xhr.send(JSON.stringify({
                 token: tkn
             }));
