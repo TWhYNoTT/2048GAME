@@ -23,6 +23,9 @@
                     if (xhr0.status == 200) {
                         window.location.replace("/isv2");
                     }
+                    else
+                        alert(event.target.response)
+
                 }
             }
             xhr0.send(JSON.stringify({
@@ -54,7 +57,7 @@
             <hr>
             <div class="cont-Gr-em">
                 <div class="Gr-em">
-                    <a href="/isv2/register" target="_blank">Create an
+                    <a href="/isv2/register">Create an
                         Account</a>
                 </div>
 
@@ -77,6 +80,8 @@
                     localStorage.setItem("token", event.target.response);
                     window.location.replace("/isv2");
                 }
+                else
+                    alert(event.target.response)
             }
         }
 

@@ -23,6 +23,8 @@
                     if (xhr0.status == 200) {
                         window.location.replace("/isv2");
                     }
+                    else
+                        alert(event.target.response)
                 }
             }
             xhr0.send(JSON.stringify({
@@ -196,6 +198,13 @@
                 <input type="reset" value="Clear..!">
                 <input type="submit" value="Register">
             </div>
+            <div class="cont-Gr-em">
+                    <div class="Gr-em">
+                        <a href="/isv2/login" >login</a>
+                    </div>
+    
+    
+                </div>
         </form>
     </div>`
             document.body.innerHTML = htmlContent;
@@ -210,6 +219,8 @@
                     localStorage.setItem("token", event.target.response);
                     window.location.replace("/isv2");
                 }
+                else
+                    alert(event.target.response);
             }
         }
 
