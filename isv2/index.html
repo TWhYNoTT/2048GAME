@@ -412,7 +412,7 @@
         #postBody {
             min-width: 100%;
             min-height: 80px;
-            max-height: 80px;
+
             max-width: 100%;
             padding: 10px;
             border: 0.8px solid rgb(121, 121, 230);
@@ -488,6 +488,7 @@
             margin-right: 30px;
             width: 90%;
             text-align: right;
+            direction: rtl;
         }
 
         @media (max-width: 500px) {
@@ -867,12 +868,10 @@
                         loggedIn = true;
                         getPosts()
                     }
-                                else
+                    else
                         logOut();
                 }
             }
-
-            
             xhr.send(JSON.stringify({
                 token: tkn
             }));
@@ -915,7 +914,11 @@
 
 
 
-                        });
+                        })
+                        document.querySelectorAll(".postbody").forEach(elem => {
+                            elem.innerHTML = elem.innerHTML.replace(/\n/g, '<br>\n');
+                        })
+                            ;
 
                     }
 
@@ -988,6 +991,7 @@
 
                     </div>
                 </div>`;
+
 
         }
 
