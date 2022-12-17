@@ -11,7 +11,7 @@ body {
 
 .header {
   display: flex;
-  background-color: #10161a6e;
+  background-color: #607d8b;
   width: 100%;
   height: 60px;
   position: fixed;
@@ -381,7 +381,7 @@ ul li {
 }
 
 .footer {
-  background-color: #10161a6e;
+  background-color: #607d8b;
   height: 20vh;
   grid-column: span 3;
 }
