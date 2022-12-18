@@ -45,7 +45,7 @@
         .information {}
 
         button {
-            background-color: #83f772;
+            background-color: #3f51b5;
             padding: 10px;
             cursor: pointer;
             color: white;
@@ -955,14 +955,14 @@
             sectionE.innerHTML += `<div class="postcontainer">
                     <div class="someinforation">
                         <div class="textinfo">
-                            <span class="postowner">${element.fullname}</span>
-                            <span class="posttime">${element.email}</span>
+                            <span class="postowner"></span>
+                            <span class="posttime"></span>
                             <span class="posttime">${element.date}</span>
                             </div>
                             <img src="img/user.png" alt="user image" class="avatarImage">
                             </div>
                             <div class="postbody">
-                                ${element.body}
+                                
                                 </div>
                                <div class="reactsContainer">
                                 <div class="dislike ${disAc}" onclick="addReact(this.parentElement.parentElement.querySelector('.postIDC').textContent,'dislike',true,this)">${dislikeBody}</div>
@@ -991,6 +991,10 @@
 
                     </div>
                 </div>`;
+            let lastEle = sectionE.lastElementChild;
+            lastEle.querySelector(".postbody").innerText = element.body;
+            lastEle.querySelector(".postowner").textContent = element.fullname;
+            lastEle.querySelector(".posttime").innerText = element.email;
 
 
         }
@@ -1240,11 +1244,13 @@
                     htmlContent = `
                         <div class="userContainer" onclick="getMessages(this.querySelector('.ID').textContent)">
                         <img src="img/user.png" alt="user image" class="avatarImage">
-                        <p class="name">${element.fn} ${element.ln}</p>
+                        <p class="name"></p>
                         <p class="ID" id="${element._id}" hidden>${element._id}</p>
                         </div>
                         `
                     usersDiv.innerHTML += htmlContent;
+
+                    usersDiv.lastElementChild.querySelector(".name").textContent = element.fn + " " + element.ln
                 }
             });
         }
