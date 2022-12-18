@@ -351,25 +351,18 @@ ul li {
 .like,
 .comment,
 .dislike {
-  border: #5cbb8d 1px solid;
+  
   width: 100%;
-  background-color: #83f772;
+  
   display: flex;
   justify-content: center;
   flex-direction: column-reverse;
   align-items: center;
-  /* border: 1px solid slategrey; */
-  border-radius: 7px;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -ms-border-radius: 7px;
-  -o-border-radius: 7px;
+
   cursor: pointer;
   margin: 1px;
   font-size: 20px;
-  text-shadow: #5cbb8d 1px 1px, #3bdc8e 1px 1px;
-  box-shadow: #24f703 .2px .2px .2px .3px,
-    #5f9058 .5px .5px .5px .4px;
+
 }
 
 /* aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa */
@@ -391,7 +384,19 @@ ul li {
 }
 
 .active {
-  background-color: #5cbb8d;
+  background-color: #4850db;
   border-radius: 7px;
   font-weight: bold;
+}
+
+.reactsContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 7px;
+    margin-top: 10px;
+    background-color: #5478e4;
+}
+button{
+background-color: #3f51b5;
 }
