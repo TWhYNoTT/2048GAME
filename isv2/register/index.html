@@ -12,7 +12,7 @@
 
     <script>
         var tkn = localStorage.getItem("token");
-        const host = "isserver.onrender.com"
+        const host = "isserver.up.railway.app"
         if (tkn) {
             let xhr0 = new XMLHttpRequest();
             xhr0.open("POST", "https://" + host + "/api/getuserdata");
