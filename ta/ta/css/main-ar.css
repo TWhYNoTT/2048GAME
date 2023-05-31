@@ -252,6 +252,7 @@ body .header img {
     font-size: 25px;
     align-self: center;
     text-transform: none;
+    margin-top: 10px;
 }
 
 @media (min-width:768px) {
