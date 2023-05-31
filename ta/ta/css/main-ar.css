@@ -916,10 +916,22 @@ li {
 
 }
 
+
 .bottom-footer .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+
+    justify-items: center;
+    gap: 10px;
+
+}
+
+@media (min-width:768px) {
+    .bottom-footer .container {
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 
 .bottom-footer .container ul {
