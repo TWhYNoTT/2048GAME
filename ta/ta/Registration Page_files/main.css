@@ -1014,8 +1014,8 @@ li {
 }
 
 .form-container.active .container {
-    animation: scale 0.3s ease forwards;
-    -webkit-animation: scale 0.3s ease forwards;
+    animation: scale 0.4s ease forwards;
+    -webkit-animation: scale 0.4s ease forwards;
 }
 
 .form-container .container {
