@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملتقى شركاء إحصاء أبوظبي</title>
+
+    <!-- Main CSS file -->
+    <link rel="stylesheet" href="css/main-ar.css">
+    <!-- Render all elements normally -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="css/all.min.css">
+    <!-- Graphik Font Family -->
+    <link href="https://fonts.cdnfonts.com/css/graphik" rel="stylesheet">
+    <!-- Montserrat and Roboto Font Family -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        // Store the scroll position in local storage
+        window.onbeforeunload = function () {
+            localStorage.setItem("scrollPos", window.pageYOffset || document.documentElement.scrollTop);
+        };
+
+        // Restore the scroll position on page load
+        window.onload = function () {
+            var scrollPos = localStorage.getItem("scrollPos");
+            if (scrollPos) {
+                window.scrollTo(0, scrollPos);
+                localStorage.removeItem("scrollPos");
+            }
+        };
+    </script>
+
+</head>
+
+<body>
+    <div class="nav-menu">
+        <ul class="nav-ul-menu">
+            <li><a href="#about-the-event">نبذة عن الملتقى</a></li>
+            <li><a href="#key-themes">المواضيع الرئيسية</a></li>
+            <li><a href="#panel-discuss">الجلسات الحوارية</a></li>
+            <li><a href="#forum-agenda">برنامج الملتقى</a></li>
+            <li><a href="#our-stakeholders">الشركاء الاستراتيجيين</a></li>
+            <li><a href="#contact-us">تواصل معنا</a></li>
+            <li><a href="#" style="background-color: #333; color: #fff; padding: 8px 16px; border-radius: 4px;"
+                    onclick="event.preventDefault();">إغلاق</a></li>
+        </ul>
+    </div>
+    <div class="overlay">
+    </div>
+    <div class="options-and-mail-bar">
+        <div class="container">
+            <div class="options">
+                <img src="images/vol.png" alt="">
+                <img src="images/view.png" alt="">
+                <a href="index.html">English</a>
+            </div>
+            <div class="mail">
+                communication@scad.gove.ae
+            </div>
+        </div>
+    </div>
+    <div class="header">
+        <div class="container">
+            <div class="menu">
+                <div class="register-button" role="button">
+                    تسجيل
+                </div>
+                <i class="fa-solid fa-bars burger-button"></i>
+            </div>
+            <img class="logo" src="images/logo.png" alt="Logo">
+        </div>
+    </div>
+
+    <div class="landing">
+        <div class="bg"></div>
+        <div class="container">
+            <div class="sub-container">
+                <h1>ملتقى شركاء</h1>
+                <h1>إحصاء أبوظبي <span>.</span></h1>
+                <div class="calendar-icon-and-date">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span>22 يونيو 2023</span>
+                </div>
+            </div>
+        </div>
+        <a href="#about-the-event">
+            <img class="down-arrow" src="images/down-arrow.png" alt="down-arrow">
+        </a>
+    </div>
+    <div id="about-the-event" class="about-the-event">
+        <div class="container">
+            <div class="sub-container">
+                <h2 class="special-heading">نبذة عن ملتقى شركاء إحصاء أبوظبي</h2>
+                <p class="p-about-the-event desc">
+                    يهدف ملتقى شركاء إحصاء أبوظبي، الذي ينظمه مركز الإحصاء - أبوظبي إلى ترسيخ وتعزيز مستويات التعاون بين
+                    القطاعين الحكومي والخاص في تطوير المنظومة الإحصائية في إمارة أبوظبي. ويتناول الملتقى عددًا من
+                    الموضوعات التي تسلط الضوء على التحول الرقمي في مجال العمل الإحصائي، وبناء النظام الإحصائي اللامركزي،
+                    وتطوير القدرات الإحصائية لدى الجهات الحكومية لتحقيق النضج الإحصائي، إلى جانب التعاون في مجال
+                    البيانات لدعم متخذي القرار استنادًا لمؤشرات إحصائية موثوقة وعالية الجودة.
+                    <br>
+                    وخلال الملتقى، سوف يُكرم مركز الإحصاء – أبوظبي عددًا من شركاءه الاستراتيجيين والباحثين الميدانيين
+                    المتميزين تقديرًا لجهودهم في إنجاح جهود تنفيذ المشاريع الإحصائية على مدار العام، وخلال الملتقى
+                    أيضًا، سوف يتم استعراض أهم الإنجازات التي حققها المركز بالتعاون مع شركائه الاستراتيجيين من خلال
+                    تسليط الضوء على دور الشركاء والمركز في تحقيق أهداف التعاون في مجال البيانات بين ممثلي القطاعين العام
+                    والخاص.<br>
+
+                </p>
+            </div>
+            <img class="map-img" src="images/map.png" alt="map">
+        </div>
+    </div>
+    <div id="counter-section" class="counter-section">
+        <div class="container">
+            <div class="sub-container">
+                <span class="num days">04</span>
+                <span class="text ">يوم</span>
+            </div>
+            <div class="sub-container">
+                <span class="num houres">08</span>
+                <span class="text ">ساعة</span>
+            </div>
+            <div class="sub-container">
+                <span class="num minutes">25</span>
+                <span class="text ">دقيقة</span>
+            </div>
+            <div class="sub-container">
+                <span class="num seconds">00</span>
+                <span class="text ">ثانية</span>
+            </div>
+        </div>
+    </div>
+    <div id="key-themes" class="key-themes">
+        <div class="container">
+            <div class="sub-container">
+                <h2 class="special-heading">الموضوعات الرئيسية</h2>
+                <p class="desc">يتيح ملتقى شركاء إحصاء أبوظبي الفرصة إلى ممثلي القطاعين الحكومي والخاص لاستكشاف أهم
+                    التطورات الإحصائية وبحث سبل تعزيز التعاون لمساعدة متخذي القرار في أبوظبي استنادًا إلى بيانات موثوقة.
+                </p>
+            </div>
+            <div class="sub-container">
+                <div class="card">
+                    <img src="images/key1.png" alt="">
+
+                    <h3>المنظومة الإحصائية</h3>
+                    <span>مناقشة التعاون بين مركز الإحصاء - أبوظبي والقطاعين العام والخاص</span>
+
+                </div>
+                <div class="card">
+                    <img src="images/key2.png" alt="">
+
+                    <h3>التعاون في مجال البيانات</h3>
+                    <span>تحقيق أهداف القطاعين العام والخاص من خلال التعاون في مجال البيانات ودعم متخذي القرار استنادًا
+                        إلى البيانات</span>
+
+                </div>
+                <div class="card">
+                    <img src="images/key3.png" alt="">
+
+                    <h3>المشروعات الإحصائية</h3>
+                    <span>استعراض أهم الإنجازات والمشاريع الإحصائية التي نفذها المركز بالإضافة إلى إطلاق موقع المركز
+                        الإلكتروني</span>
+
+                </div>
+                <div class="card">
+                    <img src="images/key4.png" alt="">
+
+                    <h3>الشراكات الإحصائية</h3>
+                    <span>تكريم الشركاء الاستراتيجيين من القطاعين الحكومي والخاص</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="panel-discuss" class="panel-discuss">
+        <div class="container">
+            <div class="sub-container">
+                <h2 class="special-heading">الجلسات الحوارية</h2>
+                <p class="desc">يتضمن الملتقى جلسات حوارية مع ممثلين من الهيئات الحكومية وشركات القطاع الخاص، تركز على
+                    دور البيانات الإدارية وأهمية التعاون بين القطاعين لتعزيز النمو الاقتصادي والاجتماعي في إمارة أبوظبي.
+                </p>
+            </div>
+            <div class="sub-container">
+                <div class="card">
+                    <div class="img-container">
+                        <img src="images/panel1.png" alt="">
+                    </div>
+                    <div class="text-container">
+                        <h3>القطاع الحكومي</h3>
+                        <span>دور البيانات الإدارية والتعاون بين المركز والجهات الحكومية في تعزيز التطلعات الاجتماعية
+                            والاقتصادية في إمارة أبوظبي</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="img-container">
+                        <img src="images/panel2.png" alt="">
+                    </div>
+                    <div class="text-container">
+                        <h3>القطاع الخاص</h3>
+                        <span>تعزيز التعاون في مجال البيانات بين القطاعين الحكومي والخاص من أجل الصالح العام</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="forum-agenda" class="forum-agenda">
+        <div class="container">
+            <div class="sub-container">
+                <h2 class="special-heading">برنامج الملتقى</h2>
+
+            </div>
+            <div class="sub-container">
+                <div class="agenda-events">
+                    <div class="line"></div>
+                    <div class="dont-delete-this" style="visibility: hidden;scroll-snap-align: start;">
+                        <div class="event-time">
+                            <div class="event-circle">11:55
+                            </div>
+                        </div>
+                        <div class="event-details" style="display: block;">
+                            <h3>الجلسة الحوارية الثانية
+                            </h3>
+                            <p>الجلسة الحوارية الثانية مع ممثلي القطاع الخاص التي تدور حول التعاون بين القطاعين من أجل
+                                الصالح العام </p>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-time">
+                            <div class="event-circle">9:30</div>
+                        </div>
+                        <div class="event-details">
+                            <h3>الاستقبال</h3>
+                            <p>استقبال الضيوف والمدعويين</p>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-time">
+                            <div class="event-circle">10:30</div>
+                        </div>
+                        <div class="event-details">
+                            <h3>الكلمة الترحيبية</h3>
+                            <p>الإعلان عن بدء الفعاليات والترحيب بالحضور</p>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-time">
+                            <div class="event-circle">10:35</div>
+                        </div>
+                        <div class="event-details">
+                            <h3>الكلمة الافتتاحية</h3>
+                            <p>المدير العام لمركز الإحصاء - أبوظبي يُلقي الكلمة الافتتاحية</p>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-time">
+                            <div class="event-circle">10:40</div>
+                        </div>
+                        <div class="event-details">
+                            <h3>الكلمة الرئيسية</h3>
+                            <p>رئيس دائرة الإسناد الحكومي يُلقي الكلمة الرئيسية للملتقى</p>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-time">
+                            <div class="event-circle">10:45</div>
+                        </div>
+                        <div class="event-details">
+                            <h3>إطلاق الموقع الإلكتروني</h3>
+                            <p>إطلاق الموقع الإلكتروني الجديد للمركز وعرض الفيديو التعريفي بالموقع</p>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-time">
+                            <div class="event-circle">10:50</div>
+                        </div>
+                        <div class="event-details">
+                            <h3>إنجازات المركز</h3>
+                            <p>استعراض أهم إنجازات المركز خلال عام 2022 من خلال فيديو قصير</p>
+                        </div>
+                    </div>
+                    <div class="event-card active">
+                        <div class="event-time">
+                            <div class="event-circle">11:00</div>
+                        </div>
+                        <div class="event-details">
+                            <h3>الجلسة الحوارية الأولى</h3>
+                            <p>الجلسة الحوارية الأولى مع ممثلي الجهات الحكومية التي تدور حول دور البيانات الإدارية</p>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-time">
+                            <div class="event-circle">11:35</div>
+                        </div>
+                        <div class="event-details">
+                            <h3>استراحة</h3>
+                            <p>استراحة لمدة عشرين دقيقة قبل بدء الجلسة الحوارية الثانية</p>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-time">
+                            <div class="event-circle">11:55</div>
+                        </div>
+                        <div class="event-details">
+                            <h3>الجلسة الحوارية الثانية</h3>
+                            <p>الجلسة الحوارية الثانية مع ممثلي القطاع الخاص التي تدور حول التعاون بين القطاعين من أجل
+                                الصالح العام</p>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-time">
+                            <div class="event-circle">12:30</div>
+                        </div>
+                        <div class="event-details">
+                            <h3>التكريم</h3>
+                            <p>تكريم الشركاء الاستراتيجيين وأبرز ممثلي العمل الميداني</p>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-time">
+                            <div class="event-circle">01:00</div>
+                        </div>
+                        <div class="event-details">
+                            <h3>الكلمة الختامية</h3>
+                            <p>كلمة سعادة مدير عام المركز في ختام الملتقى</p>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-time">
+                            <div class="event-circle">01:05</div>
+                        </div>
+                        <div class="event-details">
+                            <h3>الغداء</h3>
+                            <p>دعوة السادة الحضور لتناول الغداء قبل انتهاء الملتقى</p>
+                        </div>
+                    </div>
+
+                    <div class="dont-delete-this" style="visibility: hidden;scroll-snap-align: start;">
+                        <div class="event-time">
+                            <div class="event-circle">9:00</div>
+                        </div>
+                        <div class="event-details">
+                            <h3>Event 1</h3>
+                            <p>Event 1 details lorem ipsum dolor sit amet.</p>
+                        </div>
+                    </div>
+
+                </div>
+                <img class="arrow left-arrow-e" src="images/right-arrow-blue.png" alt="">
+                <img class="arrow right-arrow-e" src="images/left-arrow-blue.png" alt="">
+            </div>
+
+        </div>
+    </div>
+
+    <div id="our-stakeholders" class="our-stakeholders">
+        <div class="container">
+            <div class="sub-container">
+                <h2 class="special-heading">الشركاء الاستراتيجيين</h2>
+            </div>
+            <div class="sub-container">
+                <div id="xy" class="stakeholders">
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (1).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (2).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (3).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (4).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (5).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (6).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (7).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (8).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (9).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (10).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (11).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (12).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (13).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (14).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (15).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (16).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (17).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (18).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (19).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (20).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (21).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (22).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (23).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (24).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (25).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (26).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (27).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (28).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (29).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (30).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (31).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (32).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (33).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (34).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (35).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (36).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (37).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (38).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (39).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (40).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (41).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (42).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (43).png" alt="">
+
+                    </div>
+                    <div class="stakeholder-card">
+                        <img src="images/stakeholders/1 (44).png" alt="">
+
+                    </div>
+
+
+
+                </div>
+                <div class="navi">
+                    <img class="arrow left-arrow-s" src="images/rigth-arrow.png" alt="">
+                    <img class="arrow right-arrow-s" src="images/left-arrow.png" alt="">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="last-sec">
+        <div class="container">
+            <p class="special-heading">
+                ببياناتنا نمضي <br> نحو غدٍ أفضل
+            </p>
+        </div>
+    </div>
+
+    <div id="social-links" class="top-footer">
+        <div class="container">
+            <a class="link" href="https://www.linkedin.com/company/adstatistics/" target="_blank"><i
+                    class="fa-brands fa-linkedin-in"></i></a>
+            <a class="link" href="https://twitter.com/adstatistics" target="_blank"><i
+                    class="fa-brands fa-twitter"></i></a>
+            <a class="link" href="https://www.facebook.com/adstatistics" target="_blank"><i
+                    class="fa-brands fa-facebook-f"></i></a>
+            <a class="link" href="https://www.instagram.com/adstatistics/" target="_blank"><i
+                    class="fa-brands fa-instagram"></i></a>
+        </div>
+    </div>
+
+    <div id="contact-us" class="middle-footer">
+        <div class="container">
+
+            <div class="sub-container">
+                <ul>
+                    <li><a href="about-the-event">نبذة عن الملتقى</a></li>
+                    <br>
+                    <li><a href="key-themes">الموضوعات الرئيسية</a></li>
+                    <br>
+                    <li><a href="panel-discuss">جلسات الحوار</a></li>
+                    <br>
+                    <li><a href="about-the-event">برنامج الملتقى</a></li>
+                    <br>
+                    <li><a href="our-stakeholders">الشركاء الاستراتيجيين</a></li>
+
+
+                </ul>
+            </div>
+            <div class="sub-container">
+                <h4>تواصل معنا</h4>
+                <ul>
+                    <li>رقم الهاتف: <a href="tel:+18100000">8100000</a>
+                        <br>
+                        <br>
+                    </li>
+                    <li>البريد الإلكتروني: </li><a href="mailto:communication@scad.gov.ae">communication@scad.gov.ae</a>
+                    <br>
+                    <li>العنوان: </li>
+                    <address><a
+                            href="https://maps.google.com/?q=Al+Khatem+Tower+-+ADGM+Square,+Al+Maryah+Island,+Abu+Dhabi"
+                            target="_blank">برج الختم - مربعة سوق أبوظبي العالمي <br>جزيرة المارية – أبوظبي </a>
+                    </address>
+                    <br>
+
+
+                </ul>
+            </div>
+            <div class="sub-container google-map">
+                <h4>موقع الفعالية</h4>
+                <ul>
+                    <li>
+
+                        <div class="sub-container">
+                            <a href="https://goo.gl/maps/FT48juMvdXsuYPDbA" target="_blank">
+                                <iframe src="./Registration Page_files/FT48juMvdXsuYPDbA.html"
+                                    allowfullscreen=""></iframe>
+                            </a>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="bottom-footer">
+        <div class="container">
+
+            <div class="sub-container">
+                <p><a href="https://www.scad.gov.ae/ar/pages/default.aspx" target="_blank">حقوق التأليف والنشر © 2019
+                        مركز الإحصاء - أبوظبي.</a></p>
+            </div>
+            <div class="sub-container">
+                <ul>
+                    <li><a href="https://www.scad.gov.ae/ar/Pages/Disclaimer.aspx" target="_blank">إخلاء المسؤولية</a>
+                    </li>
+                    <li><a href="https://www.scad.gov.ae/ar/Pages/PrivacyPolicy.aspx" target="_blank">سياسة الخصوصية</a>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="form-container">
+        <div class="container">
+            <form action="" method="">
+                <h2 class="special-heading">سجل بياناتك لتأكيد حضورك في الملتقى</h2>
+
+                <input class="txtbx" type="text" name="" id="" placeholder="اللقب">
+                <input class="txtbx" type="text" name="" id="" placeholder="الاسم بالكامل">
+                <input class="txtbx" type="text" name="" id="" placeholder="المسمى الوظيفي">
+                <input class="txtbx" type="text" name="" id="" placeholder="اسم الجهة التابع لها">
+                <input class="txtbx" type="text" name="" id="" placeholder="البريد الإلكتروني">
+                <input class="txtbx" type="text" name="" id="" placeholder="رقم الهاتف">
+
+                <label class="chkbxlbl" for="checkbx">
+                    <p>تأكيد رغبتي في الحصول على نسخة من التقرير الفني الخاص بالملتقى</p>
+                    <div>
+                        <input type="checkbox" name="" id="checkbx">
+                        <span class="checkmark"></span>
+                    </div>
+                </label>
+
+
+
+                <input type="submit" value="تسجيل">
+                <img class="img-frm" src="images/x.png" alt="">
+            </form>
+        </div>
+    </div>
+    <script src="./Registration Page_files/jquery-3.6.0.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
