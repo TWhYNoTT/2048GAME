@@ -8,7 +8,7 @@ if (tkn) {
     xhr0.onreadystatechange = () => {
         if (xhr0.readyState == 4) {
             if (xhr0.status == 200) {
-                window.location.replace("/IS");
+                window.location.replace("/isv2");
             }
         }
     }
