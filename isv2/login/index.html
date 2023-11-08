@@ -3,102 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="SginIn.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 
-    <script>
-        var tkn = localStorage.getItem("token");
-        const host = "isserver.onrender.com"
-        if (tkn) {
-            let xhr0 = new XMLHttpRequest();
-            xhr0.open("POST", "https://" + host + "/api/getuserdata");
-            xhr0.setRequestHeader('Content-type', 'application/json')
 
-            xhr0.onreadystatechange = () => {
-                if (xhr0.readyState == 4) {
-                    if (xhr0.status == 200) {
-                        window.location.replace("/isv2");
-                    }
-                    else
-                        alert(event.target.response)
-
-                }
-            }
-            xhr0.send(JSON.stringify({
-                token: tkn
-            }));
-
-        }
-        else {
-            let htmlContent = `<div class="content">
-        <form id="myForm" action="" onsubmit="handlesubmit(event)">
-            <h2>Integrated Science</h2>
-            <label for="User" class="lab-em" required>User-Name</label>
-            <input id="email" type="email" name="User_Name:" placeholder="E-mail" tabindex="1"
-                title="E-Mail OR User-Name"  required>
-            <label for="Pass" class="lab-pass">Password</label>
-            <input id="pass" type="password" name="PassWord:" placeholder=" Write Your Password" title="Your Password"
-                required>
-            <div class="inp-sumb">
-                <input type="submit" class="submit" value="sign in">
-            </div>
-            <div class="check-box">
-                <input type="checkbox" id="Remember" class="check-box">
-                <label for="Remember" class="labalRe">Remember</label>
-            </div>
-            <div class="forget-pass">
-                <a href="#">هل نسيت كلمة السر؟</a>
-            </div>
-
-            <hr>
-            <div class="cont-Gr-em">
-                <div class="Gr-em">
-                    <a href="/isv2/register">Create an
-                        Account</a>
-                </div>
-
-
-            </div>
-
-
-        </form>
-    </div>`
-            document.body.innerHTML = htmlContent;
-        }
-
-        var xhr = new XMLHttpRequest();
-
-
-
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState == 4) {
-                if (xhr.status == 200) {
-                    localStorage.setItem("token", event.target.response);
-                    window.location.replace("/isv2");
-                }
-                else
-                    alert(event.target.response)
-            }
-        }
-
-
-
-        function handlesubmit(e) {
-            e.preventDefault();
-            xhr.open("POST", "https://" + host + "/api/login");
-            xhr.setRequestHeader('Content-type', 'application/json');
-            var email0 = document.getElementById("email").value;
-            var password0 = document.getElementById("pass").value;
-            xhr.send(JSON.stringify({
-                email: email0,
-                password: password0
-            }));
-        }
-    </script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
